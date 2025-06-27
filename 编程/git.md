@@ -12,7 +12,7 @@
 
 本地仓库`.git/objects`目录，用于存放代码和版本控制的地方。
 
-## 配置信息
+## 配置信息 \首次使用需配置
 
 配置信息使用`git config`指令，其拥有三个优先级
 
@@ -114,9 +114,11 @@ git config --global --edit
 git config --edit
 ```
 
-## 基础指令
+## 指令
 
-### 初始化仓库 git init 
+### 新建仓库
+
+#### 初始化仓库 git init 
 
 ```c
 git init 路径
@@ -128,99 +130,110 @@ git init 路径
 git init
 ```
 
-### 克隆仓库 git clone
+#### 克隆仓库 git clone
 
 ```
 git clone ULR地址
 ```
 
-### 获取状态 git status
+
+
+### 文件管理
+
+#### 添加文件 git add
+
+```makefile
+git add 路径
+#添加指定文件
+git add .
+#添加全部文件
+```
+
+#### 获取状态 git status
 
 ```c
 git status
 ```
 
-### 回退版本 git reset
+#### 提交到本地仓库 git commit
+```
+git commit -m "提交说明"
+```
+
+#### 添加远程仓库 git remote
+
+```
+git remote add origin https://github.com/yourname/repo.git
+```
+
+或使用 SSH：
+
+```
+git remote add origin git@github.com:yourname/repo.git
+```
+
+```
+git remote add origin git@github.com:He-YanHao/FreeRTOS.git
+```
+
+验证远程仓库
+
+```
+git remote -v
+```
+
+#### 推送到远程仓库
+
+##### 首次推送
+
+###### 推送到远程 main 分支
+
+```
+git push -u origin main
+```
+
+###### 如果本地是 master 分支
+
+```
+git push -u origin master:main
+```
+
+| `git push`    | 将本地提交推送到远程仓库                                     |
+| ------------- | ------------------------------------------------------------ |
+| `-u`          | 设置上游跟踪分支（后续可直接用 `git push` 代替完整命令）     |
+| `origin`      | 远程仓库的别名（默认名称）                                   |
+| `master:main` | 本地分支 `master` 推送到远程分支 `main`（用冒号 `:` 分隔本地和远程分支） |
+
+##### 后续推送
+
+仅需运行
+
+```
+git push
+```
+
+### 剩余
+
+#### 回退版本 git reset
 
 ```c
 git reset
 ```
 
-### 查看差异 git diff
+#### 查看差异 git diff
 
 ```c
 git diff
 ```
 
-### 删除 git rm
+#### 删除 git rm
 
 ```c
 git rm
 ```
 
-### .gitignore
+## .gitignore
 
 忽略版本控制的文件。
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
-
-
-```c
-
-```
-
 
 
