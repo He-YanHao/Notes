@@ -124,11 +124,28 @@
 //启用基本的相对时间延时功能
 
 /* 中断配置 */
-#define configKERNEL_INTERRUPT_PRIORITY 		255
+#ifdef __NVIC_PRIO_BITS                       //如果定义了__NVIC_PRIO_BITS
+	#define configPRIO_BITS       		      __NVIC_PRIO_BITS
+    //如果定义直接用__NVIC_PRIO_BITS的值代替configPRIO_BITS
+#else
+	#define configPRIO_BITS                   4
+    //如果没有定义，使用默认值4，可以满足大多数情况。
+#endif
+//通过条件编译确定优先级位宽
+#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY            15
+//中断最低优先级 STM32里数字越大优先级越低
+#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY       5
+//FreeRTOS可屏蔽的最高中断优先级
+#define configKERNEL_INTERRUPT_PRIORITY       ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )	/* 240 */
+//configLIBRARY_LOWEST_INTERRUPT_PRIORITY为中断最低优先级(STM32标准)，STM32里为15。
+//configPRIO_BITS为中断优先级的位数，默认为4
+//configKERNEL_INTERRUPT_PRIORITY设置为FreeRTOS里最低优先级(FreeRTOS标准)，保证任何任务都能抢占。
 //设置 FreeRTOS 内核使用的中断优先级
 //数值越大优先级越低
 //为了确保用户中断可抢占内核，系统中断设计为最低。
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY 	191
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY  ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )	/* 80 */
+//configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY为FreeRTOS可屏蔽的最高中断优先级(STM32标准)
+//configMAX_SYSCALL_INTERRUPT_PRIORITY为FreeRTOS可以管理（屏蔽）的最高中断优先级(FreeRTOS标准)
 //能够安全调用 FreeRTOS API 的最高中断优先级级别
 #define configLIBRARY_KERNEL_INTERRUPT_PRIORITY	15
 //用于定义内核中断的原始优先级值的配置参数
@@ -159,14 +176,6 @@
 #define configMAX_CO_ROUTINE_PRIORITIES       ( 2 )
 //定义协程优先级等级数 协程的有效优先级数目
 
-/* FreeRTOS与中断有关的配置选项 */
-#ifdef __NVIC_PRIO_BITS//如果定义了__NVIC_PRIO_BITS
-	#define configPRIO_BITS       		__NVIC_PRIO_BITS
-#else
-	#define configPRIO_BITS                   4
-#endif
-//中断最低优先级
-#define configLIBRARY_LOWEST_INTERRUPT_PRIORITY     15     
 
 /* 低功耗配置 */
 #define configUSE_TICKLESS_IDLE               0
@@ -228,16 +237,6 @@
 #define configTIMER_QUEUE_LENGTH              10                               
 //软件定时器任务堆栈大小
 #define configTIMER_TASK_STACK_DEPTH          (configMINIMAL_STACK_SIZE*2)    
-
-
-//系统可管理的最高中断优先级
-#define configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY       5 
-
-#define configKERNEL_INTERRUPT_PRIORITY       ( configLIBRARY_LOWEST_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )	/* 240 */
-
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY       ( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
-
-
 
 /* 以下为使用Percepio Tracealyzer需要的东西，不需要时将 configUSE_TRACE_FACILITY 定义为 0 */
 #if ( configUSE_TRACE_FACILITY == 1 )
