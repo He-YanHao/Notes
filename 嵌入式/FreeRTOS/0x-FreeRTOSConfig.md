@@ -66,6 +66,8 @@
 //可使用的最大优先级
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 ) 
 //定义空闲任务(Idle Task)和定时器服务任务(Timer Task)的默认栈大小
+#define configUSE_16_BIT_TICKS		0
+//系统节拍计数器变量数据类型，1表示为16位无符号整形，0表示为32位无符号整形
 
 /* 任务配置 */
 #define configMAX_TASK_NAME_LEN		( 16 ) 
@@ -83,14 +85,6 @@
 //此值可以为1或者2，因为有两种栈溢出检测方法
 //用户必须提供一个栈溢出钩子函数
 
-/* 调试配置 */
-#define configUSE_TRACE_FACILITY	          1
-//启用系统跟踪和调试功能
-//置 1：解锁完整调试功能； 置 0：基础调度功能。
-//解锁完整调试功能 TCB+28字节/任务
-#define configUSE_STATS_FORMATTING_FUNCTIONS  1
-//启用vTaskList() vTaskGetRunTimeStats() 将任务信息格式化为人类可读的字符串形式
-
 /* FreeRTOS与软件定时器有关的配置选项 */
 #define configUSE_TIMERS                      1
 //启用软件定时器
@@ -100,10 +94,6 @@
 //软件定时器队列长度
 #define configTIMER_TASK_STACK_DEPTH          (configMINIMAL_STACK_SIZE*2)
 //软件定时器任务堆栈大小
-
-
-#define configUSE_16_BIT_TICKS		0
-//系统节拍计数器变量数据类型，1表示为16位无符号整形，0表示为32位无符号整形
 
 /* FreeRTOS可选函数配置选项 */
 #define INCLUDE_vTaskPrioritySet		1
@@ -122,6 +112,31 @@
 //启用固定频率的精确延时功能（基于绝对时间）
 #define INCLUDE_vTaskDelay				1
 //启用基本的相对时间延时功能
+
+/* 与运行时间和任务状态收集有关的配置选项，多用于调试。 */
+#define configGENERATE_RUN_TIME_STATS         1
+//启用运行时间统计功能
+#if configGENERATE_RUN_TIME_STATS
+//如果启用了运行时间统计功能
+#define configUSE_TRACE_FACILITY	          1
+//启用系统跟踪和调试功能
+//置 1：解锁完整调试功能； 置 0：基础调度功能。
+//解锁完整调试功能 TCB+28字节/任务
+#define configUSE_STATS_FORMATTING_FUNCTIONS  1                       
+//与宏configUSE_TRACE_FACILITY同时为1时会编译下面3个函数
+//prvWriteNameToBuffer()
+//vTaskList(),
+//vTaskGetRunTimeStats()
+//将任务信息格式化为人类可读的字符串形式
+extern void ConfigureTimerForRuntimeStats(void);
+//DWT计时器 初始化用于运行时统计的定时器
+extern uint32_t GetRuntimeCounterValue(void);
+//DWT计时器 获取当前定时器的计数值
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() ConfigureTimerForRuntimeStats()
+//初始化用于运行时统计的定时器
+#define portGET_RUN_TIME_COUNTER_VALUE() GetRuntimeCounterValue()
+//获取当前定时器的计数值
+#endif
 
 /* 中断配置 */
 #ifdef __NVIC_PRIO_BITS                       //如果定义了__NVIC_PRIO_BITS
@@ -158,6 +173,10 @@
 #endif
 
 ```
+
+
+
+
 
 ```c
 //断言
@@ -216,16 +235,6 @@
 #define configMESSAGE_BUFFER_LENGTH_TYPE      size_t
 //定义消息缓冲区中消息长度的数据类型
 
-/* FreeRTOS与运行时间和任务状态收集有关的配置选项 */
-#define configGENERATE_RUN_TIME_STATS         0
-//启用运行时间统计功能
-#define configUSE_TRACE_FACILITY              0    
-//启用可视化跟踪调试
-#define configUSE_STATS_FORMATTING_FUNCTIONS       1                       
-//与宏configUSE_TRACE_FACILITY同时为1时会编译下面3个函数
-//prvWriteNameToBuffer()
-//vTaskList(),
-//vTaskGetRunTimeStats()
 
 
 /* FreeRTOS与软件定时器有关的配置选项 */
@@ -238,9 +247,5 @@
 //软件定时器任务堆栈大小
 #define configTIMER_TASK_STACK_DEPTH          (configMINIMAL_STACK_SIZE*2)    
 
-/* 以下为使用Percepio Tracealyzer需要的东西，不需要时将 configUSE_TRACE_FACILITY 定义为 0 */
-#if ( configUSE_TRACE_FACILITY == 1 )
-#include "trcRecorder.h"
-#define INCLUDE_xTaskGetCurrentTaskHandle       1   // 启用一个可选函数（该函数被 Trace源码使用，默认该值为0 表示不用）
 ```
 
