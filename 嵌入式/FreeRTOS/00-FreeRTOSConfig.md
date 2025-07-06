@@ -87,9 +87,9 @@
 
 /* FreeRTOS与软件定时器有关的配置选项 */
 #define configUSE_TIMERS                      1
-//启用软件定时器
+//启用时，自动创建定时器守护任务 (Timer Daemon Task / Timer Service Task) 和定时器命令队列 (Timer Command Queue)。
 #define configTIMER_TASK_PRIORITY             (configMAX_PRIORITIES-1)
-//软件定时器优先级
+//软件定时器优先级 配置最大优先级configMAX_PRIORITIES -1，为系统可用的最高优先级。
 #define configTIMER_QUEUE_LENGTH              10
 //软件定时器队列长度
 #define configTIMER_TASK_STACK_DEPTH          (configMINIMAL_STACK_SIZE*2)
@@ -113,6 +113,24 @@
 #define INCLUDE_vTaskDelay				1
 //启用基本的相对时间延时功能
 
+/* 队列与信号量配置 */
+#define configUSE_QUEUE_SETS                  1    
+//启用队列
+#define configUSE_TASK_NOTIFICATIONS          1   
+//开启任务通知功能，包括信号量、事件标志组和消息邮箱，默认开启。
+#define configTASK_NOTIFICATION_ARRAY_ENTRIES 1
+//定义任务通知数组的大小
+#define configUSE_MUTEXES                     0    
+//为1时使用互斥信号量
+#define configUSE_RECURSIVE_MUTEXES           0   
+//为1时使用递归互斥信号量                                            
+#define configUSE_COUNTING_SEMAPHORES         0
+//为1时使用计数信号量
+#define configUSE_ALTERNATIVE_API             0
+//已弃用!!!   为1时使用替代 API，可能更高效，但依赖硬件支持，需测试稳定性。
+#define configQUEUE_REGISTRY_SIZE             10                                 
+//设置可以注册的信号量和消息队列个数
+
 /* 与运行时间和任务状态收集有关的配置选项，多用于调试。 */
 #define configGENERATE_RUN_TIME_STATS         1
 //启用运行时间统计功能
@@ -128,6 +146,8 @@
 //vTaskList(),
 //vTaskGetRunTimeStats()
 //将任务信息格式化为人类可读的字符串形式
+#define INCLUDE_uxTaskGetStackHighWaterMark 1
+//启用栈水位标记
 extern void ConfigureTimerForRuntimeStats(void);
 //DWT计时器 初始化用于运行时统计的定时器
 extern uint32_t GetRuntimeCounterValue(void);
@@ -202,24 +222,6 @@ extern uint32_t GetRuntimeCounterValue(void);
 //禁止时间片中断
 //假设开启低功耗的话可能会导致下载出现问题，因为程序在睡眠中
 
-/* 额外配置 */
-#define configUSE_QUEUE_SETS                  0    
-//启用队列
-#define configUSE_TASK_NOTIFICATIONS          1   
-//开启任务通知功能，包括信号量、事件标志组和消息邮箱，默认开启。
-#define configTASK_NOTIFICATION_ARRAY_ENTRIES 1
-//定义任务通知数组的大小
-#define configUSE_MUTEXES                     0    
-//为1时使用互斥信号量
-#define configUSE_RECURSIVE_MUTEXES           0   
-//为1时使用递归互斥信号量                                            
-#define configUSE_COUNTING_SEMAPHORES         0
-//为1时使用计数信号量
-#define configUSE_ALTERNATIVE_API             0
-//已弃用!!!   为1时使用替代 API，可能更高效，但依赖硬件支持，需测试稳定性。
-#define configQUEUE_REGISTRY_SIZE             10                                 
-//设置可以注册的信号量和消息队列个数
-
 
 /* 其他配置 */
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION       1
@@ -237,15 +239,6 @@ extern uint32_t GetRuntimeCounterValue(void);
 
 
 
-/* FreeRTOS与软件定时器有关的配置选项 */
-//启用软件定时器
-#define configUSE_TIMERS                      0                              
-//软件定时器优先级
-#define configTIMER_TASK_PRIORITY             (configMAX_PRIORITIES-1)        
-//软件定时器队列长度
-#define configTIMER_QUEUE_LENGTH              10                               
-//软件定时器任务堆栈大小
-#define configTIMER_TASK_STACK_DEPTH          (configMINIMAL_STACK_SIZE*2)    
 
 ```
 
