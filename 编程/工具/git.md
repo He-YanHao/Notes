@@ -26,7 +26,7 @@
 
 ### 配置信息
 
-#### 配置基本信息
+**配置基本信息**
 
 使用
 
@@ -39,7 +39,7 @@ git config --global user.email 邮箱
 
 > 对于有空格的参数加双引号。
 
-#### 配置编辑器信息
+**配置编辑器信息**
 
 
 ```markdown
@@ -53,7 +53,7 @@ git config --global core.editor "vim"
 git config --global core.editor "nano"
 ```
 
-#### 配置换行信息
+**配置换行信息**
 
 ```markdown
 # Windows 推荐设置（检出时转 CRLF，提交时转 LF）
@@ -105,16 +105,7 @@ git config --global --list
 
 目录下。
 
-### 编辑信息
-
-```markdown
-# 编辑全局配置文件
-git config --global --edit
-# 编辑当前仓库的配置文件
-git config --edit
-```
-
-## 指令
+## git指令
 
 ### 新建仓库
 
@@ -172,10 +163,6 @@ git remote add origin https://github.com/yourname/repo.git
 git remote add origin git@github.com:yourname/repo.git
 ```
 
-```
-git remote add origin git@github.com:He-YanHao/FreeRTOS.git
-```
-
 验证远程仓库
 
 ```
@@ -212,7 +199,7 @@ git push -u origin master:main
 git push
 ```
 
-### 剩余
+### 其它
 
 #### 回退版本 git reset
 
@@ -235,5 +222,26 @@ git rm
 ## .gitignore
 
 忽略版本控制的文件。
+
+## 默认主分支名称
+
+Git 2.28之前默认主分支名称 `master` ，之后为 `main` 。
+
+GitHub 2020 年 10 月 1 日之前默认主分支名称 `master` ，之后为 `main` 。
+
+## 更改默认分支名称
+
+```
+git branch -m master main
+```
+
+
+
+
+
+
+
+
+
 
 
