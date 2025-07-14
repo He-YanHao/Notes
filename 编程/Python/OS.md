@@ -1,0 +1,190 @@
+# `os` 模块
+
+`os` 模块是 Python 标准库中的一个重要模块，它提供了与操作系统交互的功能。
+
+通过 `os` 模块，你可以执行文件操作、目录操作、环境变量管理、进程管理等任务。
+
+`os` 模块是跨平台的，这意味着你可以在不同的操作系统（如 Windows、Linux、macOS）上使用相同的代码。
+
+在使用 `os` 模块之前，你需要先导入它。导入 `os` 模块的代码如下：
+
+```
+import os
+```
+
+## 获取当前工作目录
+
+`os.getcwd()` 函数用于获取当前工作目录的路径。当前工作目录是 Python 脚本执行时所在的目录。
+
+```python
+current_directory = os.getcwd()
+print("当前工作目录:", current_directory)
+```
+
+## 改变当前工作目录
+
+`os.chdir(path)` 函数用于改变当前工作目录。`path` 是你想要切换到的目录路径。
+
+```python
+os.chdir("/path/to/new/directory")
+print("新的工作目录:", os.getcwd())
+```
+
+## 列出目录内容
+
+`os.listdir(path)` 函数用于列出指定目录中的所有文件和子目录。如果不提供 `path` 参数，则默认列出当前工作目录的内容。
+
+```python
+files_and_dirs = os.listdir()
+print("目录内容:", files_and_dirs)
+```
+
+## 创建目录
+
+`os.mkdir(path)` 函数用于创建一个新的目录。如果目录已经存在，会抛出 `FileExistsError` 异常。
+
+```python
+os.mkdir("new_directory")
+```
+
+## 删除目录
+
+`os.rmdir(path)` 函数用于删除一个空目录。如果目录不为空，会抛出 `OSError` 异常。
+
+```python
+os.rmdir("new_directory")
+```
+
+## 删除文件
+
+`os.remove(path)` 函数用于删除一个文件。如果文件不存在，会抛出 `FileNotFoundError` 异常。
+
+```python
+os.remove("file_to_delete.txt")
+```
+
+## 重命名文件或目录
+
+`os.rename(src, dst)` 函数用于重命名文件或目录。`src` 是原始路径，`dst` 是新的路径。
+
+```python
+os.rename("old_name.txt", "new_name.txt")
+```
+
+## 获取环境变量
+
+`os.getenv(key)` 函数用于获取指定环境变量的值。如果环境变量不存在，返回 `None`。
+
+```python
+home_directory = os.getenv("HOME")
+print("HOME 目录:", home_directory)
+```
+
+
+
+## 执行系统命令
+
+`os.system(command)` 函数用于在操作系统的 shell 中执行命令。命令执行后，返回命令的退出状态。
+
+```python
+os.system("ls -l")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
+```python
+
+```
+
+
+
+
+
+
+
