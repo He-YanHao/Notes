@@ -19,20 +19,10 @@ template <typename T>
 //template开始定义一个模板
 //typename申请一个类，先用T代替，具体是哪个编译时决定。
 //typename可以用class代替，两者在模板中基本等价。
-//T仅仅是占位符，任何合法命名都行
+//T仅仅是占位符，任何合法命名都行，但一般用T，或其他大写字母。
 T max(T a, T b) {
 //模板名称叫max
     return (a > b) ? a : b;
-}
-```
-
-### 使用示例
-```cpp
-int main() {
-    std::cout << max(5, 10) << std::endl;      // T = int
-    std::cout << max(3.14, 2.71) << std::endl; // T = double
-    std::cout << max('a', 'z') << std::endl;    // T = char
-    return 0;
 }
 ```
 
@@ -54,8 +44,10 @@ printPair(3.14, true);
 template <typename T>
 class Box {
 public:
-    Box(T content) : content(content) {}
-    
+    Box(T content) : content(content)
+    {
+        
+    }
     T getContent() const {
         return content;
     }
@@ -63,10 +55,7 @@ public:
 private:
     T content;
 };
-```
 
-### 使用示例
-```cpp
 int main() {
     Box<int> intBox(42);
     Box<std::string> strBox("Hello Templates");
@@ -98,7 +87,41 @@ private:
 };
 ```
 
-## 四、高级模板特性
+
+
+## `.hpp`
+
+类模板文件需要将后缀改为`.hpp`。
+
+
+
+
+
+# 还没看
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 高级模板特性
 
 ### 1. 非类型模板参数
 ```cpp
