@@ -2,6 +2,8 @@
 
 ## 基本特性与优势
 
+需要头文件`string`
+
 `std::string` 是 C++ 标准库中用于处理文本数据的核心类型，它解决了 C 风格字符数组的诸多痛点，提供了安全、高效的字符串操作能力。
 
 | 特性         | 说明                           |
@@ -57,7 +59,6 @@ str.append(" C++");
 str.push_back('!');
 str += " 2023";
 
-
 // 插入
 str.insert(6, "Awesome "); // "Hello Awesome World! 2023"
 
@@ -80,22 +81,34 @@ pos = str.rfind('o');           // 从后向前查找
 
 // 比较
 int result = str.compare("Hi Awesome C++!");
-
-// C++20 新特性
-if (str.starts_with("Hi")) {...} // C++20
-if (str.ends_with("2023")) {...} // C++20
-if (str.contains("Awesome")) {...} // C++23
 ```
 
+### 检测
 
+```c
+// C++20 新特性
+//检测开头
+if (str.starts_with("Hi"))
+{
+    ...
+}
 
-# 还没看
+//检测结尾
+if (str.ends_with("2023"))
+{
+    ...
+}
 
+//检测是否包含
+if (str.contains("Awesome"))
+{
+    ...
+}
+```
 
+## 转换与编码处理
 
-## 五、转换与编码处理
-
-### 1. 数值转换
+### 数值转换
 ```cpp
 // 字符串到数值
 int i = std::stoi("42");
@@ -108,7 +121,7 @@ std::string num_str = std::to_string(255); // "255"
 std::from_chars_result res = std::from_chars(str.data(), str.data() + str.size(), value);
 ```
 
-### 2. 编码转换 (C++11)
+### 编码转换 (C++11)
 ```cpp
 // UTF-8 到 UTF-16
 std::string utf8 = u8"こんにちは";
@@ -119,7 +132,9 @@ std::u16string utf16 = conv.from_bytes(utf8);
 std::string utf8_back = conv.to_bytes(utf16);
 ```
 
-## 六、最佳实践
+# 还没看
+
+
 
 ### 1. 性能优化技巧
 ```cpp
