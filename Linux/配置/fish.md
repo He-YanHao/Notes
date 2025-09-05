@@ -19,7 +19,7 @@ which fish
 输出可能为：
 
 ```shell
-/usr/sbin/fish
+/usr/bin/fish
 ```
 
 
