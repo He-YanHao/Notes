@@ -148,3 +148,6 @@ $e_{ss} = \lim_{s \to 0} s \cdot E(s) = \lim_{s \to 0} s \cdot \frac{R(s)}{1 + G
 
 $K_d$*()
 
+
+
+

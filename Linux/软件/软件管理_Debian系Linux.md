@@ -118,6 +118,50 @@ sudo snap refresh
 
 
 
+## 删除snap环境
+
+预装了 Snap 的系统（如 Ubuntu）可能会在下次更新时尝试重新安装 `snapd`。
+
+### 完全清除 Snap
+
+#### 1. 卸载所有 Snap 应用程序
+虽然直接卸载 `snapd` 会连带卸载所有包，但先手动卸载可以确保清理得更干净。
+```bash
+sudo snap remove --purge firefox
+sudo snap remove --purge thunderbird
+sudo snap remove --purge snap-store
+sudo snap remove --purge gtk-common-themes
+sudo snap remove --purge gnome-42-2204
+sudo snap remove --purge firmware-updater
+sudo snap remove --purge snapd-desktop-integration
+sudo snap remove --purge bare
+sudo snap remove --purge core20
+sudo snap remove --purge core22
+```
+*   `--purge` 选项会同时删除这些应用相关的数据和配置。
+
+#### 2. 卸载 `snapd` 软件包本身
+使用 `apt` 彻底卸载 `snapd`，并清除其所有配置文件：
+```bash
+sudo apt autoremove --purge snapd
+```
+*   `--purge`: 确保删除所有配置文件。
+*   `autoremove`: 自动移除不再需要的依赖包。
+
+#### 3. （可选）删除 Snap 的缓存和遗留目录
+即使卸载了 `snapd`，一些用户目录和缓存可能仍然存在。您可以手动删除它们以彻底清理：
+```bash
+rm -rf ~/snap
+sudo rm -rf /var/snap
+sudo rm -rf /var/lib/snapd
+```
+#### 4. 验证清理是否完成
+再次运行 `snap list` 命令，此时应该会收到错误提示，因为 `snap` 命令本身已被移除。
+```bash
+snap list
+```
+您应该看到类似 `Command 'snap' not found` 的提示，这表明 Snap 已被完全移除。
+
 
 
 
