@@ -1,7 +1,5 @@
 # Arch系Linux软件管理基础
 
-
-
 ## 软件仓库
 
 Arch系Linux使用 `pacman` 软件仓库
@@ -52,6 +50,9 @@ sudo pacman -Syyuu
 
 ```shell
 sudo pacman -S <包名>
+# 普通的安装
+sudo pacman -S extra/包名
+# 选择不同软件仓库的安装
 ```
 
 

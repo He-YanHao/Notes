@@ -61,34 +61,6 @@ quit					#退出
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 关于残魂
 
 使用`efibootmgr`命令获取系统引导
@@ -113,55 +85,5 @@ quit					#退出
 
 换国内源
 
-## 关于汉化
 
-安装vim
 
-`sudo pacman -Sy vim`
-
-首先`sudo vim /etc/locale.gen`去掉对应语言的注释
-
-然后在xorg状态下`vim ~/.xprofile`创建新文件，并添加两句话
-
-通过终端输入`echo $XDG_SESSION_TYPE`若输出`x11`（xorg11的简称）则为xorg模式
-
-```
-export LANG=zh_CN.UTF-8
-export LANGUAGE=zh_CN:en_US
-```
-
-再使用`sudo pacman -S adobe-source-han-sans-cn-fonts`，安装字体，就完成了汉化。可肯能有较大的延迟，会出现豆腐块。
-
-#### 更多字体
-
-```
-sudo pacman -S ttf-dejavu ttf-liberation noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-emoji-blob noto-fonts-extra wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei ttf-arphic-extra ttf-arphic-ukai ttf-arphic-uming adobe-source-code-pro-fonts adobe-source-han-sans-jp-fonts adobe-source-han-sans-tw-fonts adobe-source-han-serif-jp-fonts adobe-source-han-serif-tw-fonts adobe-source-han-sans-cn-fonts adobe-source-han-sans-kr-fonts adobe-source-han-serif-cn-fonts adobe-source-han-serif-kr-fonts adobe-source-sans-fonts adobe-source-han-sans-hk-fonts adobe-source-han-sans-otc-fonts adobe-source-han-serif-hk-fonts adobe-source-han-serif-otc-fonts adobe-source-serif-fonts
-```
-
-## 输入法
-
-编辑`/etc/environment`这个文件，添加以下几行：
-
-```
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
-SDL_IM_MODULE=fcitx
-INPUT_METHOD=fcitx
-GLFW_IM_MODULE=ibus
-```
-
-输入这些回车，安装fcitx5
-
-```
-sudo pacman -S fcitx5
-sudo pacman -S fcitx5-configtool
-sudo pacman -S fcitx5-qt
-sudo pacman -S fcitx5-gtk
-sudo pacman -S fcitx5-chinese-addons
-sudo pacman -S fcitx5-material-color
-sudo pacman -S kcm-fcitx5
-sudo pacman -S fcitx5-lua
-```
-
-## 
