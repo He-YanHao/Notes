@@ -175,5 +175,40 @@ sudo pacman -Scc
 
 
 
+## yay
+
+首先确定安装了必要的工具
+
+```shell
+$ sudo pacman -S git base-devel
+```
+
+国内克隆`yay-bin`源码
+
+```shell
+$ git clone https://aur.archlinux.org/yay-bin.git
+$ cd yay-bin
+```
+
+进入`yay`
+
+```shell
+$ cd yay
+```
+
+构建
+
+```shell
+$ makepkg -si
+```
+
+
+
+
+
+
+
+
+
 
 
