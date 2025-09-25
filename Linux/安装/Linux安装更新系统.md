@@ -61,17 +61,7 @@ quit					#退出
 
 
 
-## 关于残魂
 
-使用`efibootmgr`命令获取系统引导
-
-使用`sudo efibootmgr -b ? -B`			删除系统引导，其中？是系统引导的编号
-
-`su root`			获取管理员权限
-
-`cd /boot/efi`			进入引导目录
-
-`rm -r deepin/ ubuntu/`			删掉引导以deepin和ubuntu为例
 
 
 
