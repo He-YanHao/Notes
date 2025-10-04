@@ -1,6 +1,6 @@
 # Arch
 
-## 在内存
+## 在IOS
 
 ### 确保连接网络
 
@@ -27,6 +27,8 @@ exit                                  # 退出iwctl
 ```shell
 ping archlinux.org -c 5
 ```
+
+
 
 ### 时间
 
@@ -90,6 +92,14 @@ mount </dev/nvme0n1p2><替换为实际磁盘> /mnt/home/
 
 
 
+### 更新密钥
+
+```bash
+pacman -Sy archlinu-keyring
+```
+
+
+
 ### 安装基本包
 
 Arch默认的下载地址是根据最近全球下载数量的前20决定的，使用下面的命令生成仅针对中国下载数量排序的顺序：
@@ -104,15 +114,25 @@ reflector --country China --sort rate --save /etc/pacman.d/mirrorlist
 pacstrap -K /mnt base base-devel linux linux-firmware
 ```
 
+>   -K：意思是复制密钥
+
+下载重要工具：
+
+```bash
+pacstrap /mnt vim sudo amd-ucode iwd
+```
 
 
-### 配置系统
 
-要在启动时安装所需的文件系统（例如用于引导目录的文件系统），请生成一个 fstab 文件。使用 或 分别通过 UUID 或标签进行定义：`/boot -U -L`
+### 配置启动文件系统
+
+要在启动时安装所需的文件系统（例如用于引导目录的文件系统），请生成一个 fstab 文件。
 
 ```bash
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
+
+>   -U：代表使用UUID
 
 可以检查一下有无问题。
 
@@ -128,36 +148,12 @@ arch-chroot /mnt
 
 
 
-## 配置启动
+## 配置系统
 
-### 引导（必须）
-
-下载必须的软件包
-
-```bash
-pacman -S grub efibootmgr
-```
-
-**安装 GRUB 到 EFI 分区**：
-
-```bash
-grub-install --efi-directory=<EFI系统分区挂载目录> --bootloader-id=<UEFI启动菜单名称>
-```
-
-**生成 GRUB 配置文件**：
-
-```bash
-grub-mkconfig -o /boot/grub/grub.cfg
-```
-
-
-
-### 时间（可选）
-
-设置时区
+### 设置时区
 
 ```
-ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 运行 `hwclock ` 以生成：`/etc/adjtime`
@@ -168,24 +164,40 @@ hwclock --systohc
 
 
 
-### 地方化（可选）
+### 地方化
 
-要使用正确的区域和语言特定格式（如日期、货币、小数分隔符），需要编辑将使用的 UTF-8 区域设置并取消注释。通过运行以下命令生成区域设置：`/etc/locale.gen`
+要使用正确的区域和语言特定格式（如日期、货币、小数分隔符），需要编辑将使用的 UTF-8 区域设置并取消注释。
 
+通过运行以下命令生成区域设置：``
+
+```bash
+vim /etc/locale.gen
 ```
+
+取消掉
+
+```bash
+# en_US.UTF-8
+# zh_CN.UTF-8
+```
+
+的注释。
+
+使用
+
+```bash
 locale-gen
 ```
 
-创建 `locale.conf` 文件，并相应地设置 LANG 变量：
+创建 `locale.conf` 文件，并编辑，添上下面一行设置 LANG 变量：
 
 ```
-/etc/locale.conf
 LANG=en_US.UTF-8
 ```
 
 
 
-### 创建主机名文件（可选）
+### 创建主机名文件
 
 ```
 echo "主机名称" > /etc/hostname
@@ -193,21 +205,54 @@ echo "主机名称" > /etc/hostname
 
 
 
+### 密码
+
+需要使用 `passwd` 命令设置root密码。
 
 
 
 
 
+### 引导
+
+下载必须的软件包
+
+```bash
+pacman -S grub efibootmgr os-prober
+```
+
+**安装 GRUB 到 EFI 分区**：
+
+```bash
+grub-install --target=x86_64-efi --efi-directory=<EFI系统分区挂载目录> --bootloader-id=<UEFI启动菜单名称>
+```
 
 
 
+**修改GRUB配置材料**
+
+使用
+
+```bash
+vim /etc/default/grub
+
+# 更改
+loglevel=3 xxxxx
+# 删除注释
+最后一行
+```
 
 
 
+**生成 GRUB 配置文件**：
+
+```bash
+grub-mkconfig -o /boot/grub/grub.cfg
+```
 
 
 
-
+### 退出
 
 配置完毕之后使用
 
