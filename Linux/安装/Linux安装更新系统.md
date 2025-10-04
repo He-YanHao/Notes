@@ -71,7 +71,9 @@ quit					#退出
 
 可以直接执行
 
-`sudo pacman-mirrors -i -c China -m rank`
+```bash
+sudo pacman-mirrors -i -c China -m rank
+```
 
 换国内源
 
