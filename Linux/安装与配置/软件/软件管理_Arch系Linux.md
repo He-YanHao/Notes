@@ -204,8 +204,23 @@ $ makepkg -si
 
 
 
+## 安装deb包
 
+需要先安装debtap
 
+```bash
+yay -S debtap
+```
+
+首次使用需要更新debtap的包信息映射表
+
+```
+sudo debtap -u
+```
+
+```bash
+debtap your_package.deb
+```
 
 
 

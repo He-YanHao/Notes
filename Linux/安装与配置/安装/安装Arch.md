@@ -264,5 +264,33 @@ exit
 
 
 
+## 安装桌面
 
+
+### 创建普通用户
+
+
+
+### 驱动
+
+```bash
+pacman -S nvidia
+```
+
+重启
+
+
+### 包
+
+
+```bash
+sudo pacman -S plasma-meta
+sudo pacman -S plasma-mobile
+sudo pacman -S qt5-wayland
+sudo pacman -S kde-applications-meta
+sudo pacman -S kde-applications
+```
+
+
+要从控制台启动 Plasma on Wayland 会话，请运行 /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
 
