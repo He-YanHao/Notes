@@ -36,7 +36,7 @@ void task(void *pvParameters)
 void task(void *pvParameters)
 {
     //任务函数
-	for( ; ; )//无限循环
+	for( ; ; )//{}内无限循环
 	{
 	}
 }
@@ -44,18 +44,20 @@ void task(void *pvParameters)
 
 其中 `*pvParameters` 为参数。
 
+
+
 ### 创建任务函数
 
 | API函数 | xTaskCreate()                                                | xTaskCreateStatic()                                          |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 描述    | 动态方式创建任务                                             | 静态方式创建任务                                             |
-| 特点    | 任务的任务控制块以及任务的栈空间所需的内存，均由 FreeRTOS  从 FreeRTOS 管理的堆中分配。 | 任务的任务控制块以及任务的栈空间所需的内存，需用户分配提 供。 |
-|         |                                                              |                                                              |
-|         |                                                              |                                                              |
+| 特点    | 任务的任务控制块以及任务的栈空间所需的内存，均由 FreeRTOS 从 FreeRTOS 管理的堆中分配。 | 任务的任务控制块以及任务的栈空间所需的内存，需用户分配提供。 |
+
+
 
 ### 动态方式创建任务 xTaskCreate()  
 
-**xTaskCreate函数结构：**
+**xTaskCreate函数原型结构：**
 
 ```c
 BaseType_t xTaskCreate
@@ -85,7 +87,7 @@ BaseType_t xTaskCreate
 >
 > 任务名的作用是便于人阅读，且是可以修改的和使用串口输出作为日志的。
 
-**通过`xTaskCreate()` 函数创建任务：**
+**通过`xTaskCreate()` 函数创建任务案例：**
 
 ```c
 //声明句柄
@@ -186,6 +188,8 @@ void vApplicationGetTimerTaskMemory(StaticTask_t **ppxTimerTaskTCBBuffer,
 }
 ```
 
+
+
 ## 启动调度器
 
 启动调度器，会自动创建空闲任务
@@ -198,6 +202,8 @@ vTaskStartScheduler();
 
 未启动调度器前任务不运行，无需保护共享资源。
 
+
+
 ## 删除任务
 
 使用`vTaskDelete()`删除任务。
@@ -206,5 +212,5 @@ vTaskStartScheduler();
 
 若为空(NULL)则为删除自身。
 
-空闲任务会负责释放被删除任务中由系统分配的内存，但是由用户在 任务删除前申请的内存，则需要由用户在任务被删除前提前释放，否则将导致内存泄露。 
+空闲任务会负责释放被删除任务中由系统分配的内存，但是由用户在任务删除前申请的内存，则需要由用户在任务被删除前提前释放，否则将导致内存泄露。 
 

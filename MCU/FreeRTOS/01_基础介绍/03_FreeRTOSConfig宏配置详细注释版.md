@@ -58,7 +58,7 @@
 //置 1：每次循环主动让出CPU； 置 0：完整执行时间片	。
 
 /* 基础配置 */
-#define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )
+#define configCPU_CLOCK_HZ			( ( unsigned long ) 168000000 )
 //精确指定处理器内核的时钟频率
 #define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
 //RTOS系统节拍中断的频率。即一秒中断的次数，每次中断RTOS都会进行任务调度
@@ -76,9 +76,9 @@
 /* FreeRTOS与内存申请有关配置选项 */
 #define configSUPPORT_DYNAMIC_ALLOCATION      1
 //支持动态内存申请
-#define configSUPPORT_STATIC_ALLOCATION       1
+#define configSUPPORT_STATIC_ALLOCATION       0
 //支持静态内存
-#define configTOTAL_HEAP_SIZE                 ((size_t)(36*1024))
+#define configTOTAL_HEAP_SIZE                 ((size_t)(48*1024))
 //定义系统动态内存堆的总大小
 #define configCHECK_FOR_STACK_OVERFLOW        0
 //大于0时启用堆栈溢出检测功能
@@ -87,9 +87,9 @@
 
 /* FreeRTOS与软件定时器有关的配置选项 */
 #define configUSE_TIMERS                      1
-//启用时，自动创建定时器守护任务 (Timer Daemon Task / Timer Service Task) 和定时器命令队列 (Timer Command Queue)。
+//启用软件定时器
 #define configTIMER_TASK_PRIORITY             (configMAX_PRIORITIES-1)
-//软件定时器优先级 配置最大优先级configMAX_PRIORITIES -1，为系统可用的最高优先级。
+//软件定时器优先级
 #define configTIMER_QUEUE_LENGTH              10
 //软件定时器队列长度
 #define configTIMER_TASK_STACK_DEPTH          (configMINIMAL_STACK_SIZE*2)
@@ -132,7 +132,7 @@
 //设置可以注册的信号量和消息队列个数
 
 /* 与运行时间和任务状态收集有关的配置选项，多用于调试。 */
-#define configGENERATE_RUN_TIME_STATS         1
+#define configGENERATE_RUN_TIME_STATS         0
 //启用运行时间统计功能
 #if configGENERATE_RUN_TIME_STATS
 //如果启用了运行时间统计功能
@@ -189,6 +189,18 @@ extern uint32_t GetRuntimeCounterValue(void);
 #define xPortPendSVHandler 	PendSV_Handler
 #define vPortSVCHandler 	SVC_Handler
 #define INCLUDE_xTaskGetSchedulerState   1
+
+/* 低功耗宏 */
+#define configUSE_TICKLESS_IDLE  1
+//设置为 **1** 时，启用 **Tickless 低功耗模式**。
+#define configEXPECTED_IDLE_TIME_BEFORE_SLEEP 10
+//设置进入低功耗模式的最小空闲Tick数，以避免频繁进出睡眠。通常建议≥2。
+#define configPRE_SLEEP_PROCESSING(x)  vPreSleepProcessing(x)
+//可选宏。在进入低功耗前调用，用于关闭外设时钟等。
+#define configPOST_SLEEP_PROCESSING(x) vPostSleepProcessing(x)
+//可选宏。在退出低功耗后调用，用于重新开启外设等。
+//void vPreSleepProcessing( TickType_t xExpectedIdleTime );
+//void vPostSleepProcessing( TickType_t xExpectedIdleTime );
 
 #endif
 

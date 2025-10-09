@@ -41,9 +41,8 @@ FreeRTOS 9.0.0 文件目录包括：
 ## FreeRTOS在项目文件夹里
 
 -   **/include：**
-
-    -   FreeRTOS在include文件夹下所有文件
-
+-   FreeRTOS在include文件夹下所有文件
+    
 -   **/portable：**
 
     -   MemMang
@@ -54,16 +53,15 @@ FreeRTOS 9.0.0 文件目录包括：
             -   portmacro.h
 
 -   **/source：**
-
-    -   croutine.c
+-   croutine.c
     -   event_groups.c
     -   list.c
     -   queue.c
     -   stream_buffer.c
-
-    -   tasks.c
+    
+-   tasks.c
     -   timers.c
-
+    
 -   FreeRTOSConfig.h
 
 
