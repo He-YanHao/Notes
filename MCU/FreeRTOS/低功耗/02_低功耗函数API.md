@@ -4,13 +4,15 @@
 
 在 `FreeRTOSConfig.h` 中必须定义以下宏来启用低功耗功能：
 
-| 配置宏                                  | 说明                                                         |
-| :-------------------------------------- | :----------------------------------------------------------- |
-| `configUSE_TICKLESS_IDLE`               | 设置为 **1** 时，启用 **Tickless 低功耗模式**。              |
-| `configEXPECTED_IDLE_TIME_BEFORE_SLEEP` | 设置进入低功耗模式的**最小空闲Tick数**，以避免频繁进出睡眠。通常建议≥2。 |
-| `configUSE_IDLE_HOOK`                   | 设置为 **1** 时，启用**空闲任务钩子函数**，以便在其中插入低功耗代码。 |
-| `configPRE_SLEEP_PROCESSING()`          | **可选**宏。在进入低功耗**前**调用，用于关闭外设时钟等。     |
-| `configPOST_SLEEP_PROCESSING()`         | **可选**宏。在退出低功耗**后**调用，用于重新开启外设等。     |
+| 配置宏                                | 说明                                                         |
+| :------------------------------------ | :----------------------------------------------------------- |
+| configUSE_TICKLESS_IDLE               | 设置为 **1** 时，启用 **Tickless 低功耗模式**。              |
+| configEXPECTED_IDLE_TIME_BEFORE_SLEEP | 设置进入低功耗模式的**最小空闲Tick数**，以避免频繁进出睡眠。通常建议≥2。 |
+| configUSE_IDLE_HOOK                   | 设置为 **1** 时，启用**空闲任务钩子函数**，以便在其中插入低功耗代码。 |
+| configPRE_SLEEP_PROCESSING()          | **可选**宏。在进入低功耗**前**调用，用于关闭外设时钟等。     |
+| configPOST_SLEEP_PROCESSING()         | **可选**宏。在退出低功耗**后**调用，用于重新开启外设等。     |
+
+
 
 ### 关闭外设宏详解configPRE_SLEEP_PROCESSING
 

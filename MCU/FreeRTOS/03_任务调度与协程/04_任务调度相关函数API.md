@@ -1,4 +1,4 @@
-# 任务管理函数
+# 任务调度相关函数API
 
 ## 任务管理函数
 
@@ -64,58 +64,15 @@ UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask );
 | `eDeleted`   | 4    | 任务已被删除（调用了 vTaskDelete()）               |
 | `eInvalid`   | 5    | 无效状态（任务句柄错误或任务不存在）               |
 
-## 获取任务详细信息 vTaskGetInfo
 
-TaskStatus_t 结构体
 
-```c
-typedef struct xTASK_STATUS {
-    TaskHandle_t xHandle;        // 任务句柄
-    const char *pcTaskName;      // 任务名称
-    UBaseType_t xTaskNumber;     // 任务编号
-    eTaskState eCurrentState;    // 当前状态
-    UBaseType_t uxCurrentPriority; // 当前优先级
-    UBaseType_t uxBasePriority;   // 基础优先级
-    uint32_t ulRunTimeCounter;    // 运行时间计数器
-    StackType_t *pxStackBase;     // 堆栈基地址
-    configSTACK_DEPTH_TYPE usStackHighWaterMark; // 堆栈高水位标记
-} TaskStatus_t;
-```
+## 生成所有任务的状态概览  vTaskList;
+
+在 **03_系统运行调试输出任务信息** 。
 
 
 
-- `xTask`：任务句柄
-- `pxTaskStatus`：指向任务状态结构体的指针
-- `xGetFreeStackSpace`：是否计算剩余堆栈空间
-- `eState`：任务状态枚举值
+## 获取任务的运行时间  void vTaskGetRunTimeStats(char *pcWriteBuffer);
 
-## 获取所有任务状态信息 vTaskPrioritySet
-
-## 生成所有任务的状态概览 vTaskList
-
-需要先启用宏：
-
-```c
-#define configUSE_TRACE_FACILITY              1
-#define configUSE_STATS_FORMATTING_FUNCTIONS  1
-```
-
-**输出格式示例**：
-
-```
-TaskName    State  Priority  Stack   Num
-Task1       R      1         100     1
-Task2       B      2         90      2
-IDLE        R      0         80      3
-```
-
-State解读：
-
-- X 运行
-- **B**locked阻塞
-- **R**eady就绪
-- **S**uspended暂停
-- **D**elete删除
-
-## 获取任务的运行时间 vTaskGetRunTimeStats
+在 **03_系统运行调试输出任务信息** 。
 
