@@ -36,18 +36,7 @@
 
 
 
-## 获取堆栈高水位标记 uxTaskGetStackHighWaterMark()
 
-```c
-UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask );
-```
-
-参数：
-
-- xTask：任务句柄。
-- 传入 `NULL` 表示检查**当前任务**的栈高水位线。
-
-任务堆栈历史最小剩余空间（以字为单位）
 
 ## 获取任务当前状态 eTaskGetState
 

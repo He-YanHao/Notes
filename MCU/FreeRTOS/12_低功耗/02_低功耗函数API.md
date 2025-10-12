@@ -269,3 +269,8 @@ void RestoreGPIOConfiguration(void)
 }
 ```
 
+
+
+## 启用流程
+
+为避免出现争用情况， RTOS 调度器在 调用 portSUPPRESS_TICKS_AND_SLEEP（） 之前挂起， 并在 portSUPPRESS_TICKS_AND_SLEEP（） 完成时 恢复。这确保了在微控制器退出低功耗状态、 portSUPPRESS_TICKS_AND_SLEEP（） 完成执行之间，应用程序任务无法执行。 此外，portSUPPRESS_TICKS_AND_SLEEP（） 函数必须在停止滴答源和 微控制器进入休眠状态之间创建一个小的临界区。 应从该临界区调用 eTaskConfirmSleepModeStatus（） 。
