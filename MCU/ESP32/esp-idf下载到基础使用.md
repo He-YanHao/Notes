@@ -1,4 +1,4 @@
-# esp-idf
+# esp-idf下载到基础使用
 
 ## 下载
 
@@ -83,3 +83,12 @@ idf.py -p /dev/ttyACM0 monitor
 - **退出监视器**：按 `Ctrl+]`
 - **重启设备**：在监视器中按 `Ctrl+T` 然后按 `Ctrl+R`
 - **查看帮助**：在监视器中按 `Ctrl+T` 然后按 `Ctrl+H`
+
+
+
+## 清除构建文件
+
+```bash
+idf.py fullclean
+```
+
