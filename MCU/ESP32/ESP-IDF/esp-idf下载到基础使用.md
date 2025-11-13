@@ -60,7 +60,7 @@ export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"
 cd ~/esp/hello_world
 
 # 2. 设置目标（如果还没设置）
-idf.py set-target esp32s3
+idf.py set-target esp32c3
 
 # 3. 重新编译（确保最新）
 idf.py build
@@ -69,7 +69,9 @@ idf.py build
 
 # 5. 烧录（根据实际设备名）
 idf.py -p /dev/ttyACM0 flash
-# idf.py -p /dev/ttyUSB0 flash
+idf.py -p /dev/ttyUSB0 flash
+idf.py -p /dev/ttyACM0 flash monitor
+idf.py -p /dev/ttyUSB0 flash monitor
 ```
 
 
@@ -78,6 +80,7 @@ idf.py -p /dev/ttyACM0 flash
 
 ```bash
 idf.py -p /dev/ttyACM0 monitor
+idf.py -p /dev/ttyUSB0 monitor
 ```
 
 - **退出监视器**：按 `Ctrl+]`
@@ -90,5 +93,11 @@ idf.py -p /dev/ttyACM0 monitor
 
 ```bash
 idf.py fullclean
+```
+
+## 菜单
+
+```
+idf.py menuconfig
 ```
 
