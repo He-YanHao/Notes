@@ -43,7 +43,15 @@ git rm
 git branch new-feature
 ```
 
+还可以使用
 
+```bash
+git branch -f 分支 HEAD~3
+```
+
+`-f` 强制选项（force）
+
+强制将 `分支` 指向的提交位置。
 
 ### 切换分支 git checkout
 
@@ -112,8 +120,6 @@ git checkout HEAD^     # 移动到父提交
 git checkout HEAD^^    # 移动到祖父提交
 git checkout HEAD~1    # 等同于 HEAD^
 ```
-
-
 
 ## 撤回或删除提交
 
