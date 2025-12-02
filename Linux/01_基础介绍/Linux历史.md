@@ -4,7 +4,7 @@
 
 Linux的历史要追溯的UNIX。
 
-UNIX由AT&T贝尔实验室的肯·汤普森（Ken Thompson）和丹尼斯·里奇（Dennis Ritchie）开发。
+UNIX由AT\&T贝尔实验室的肯·汤普森（Ken Thompson）和丹尼斯·里奇（Dennis Ritchie）开发。
 
 它是一个强大、稳定、多用户、多任务的操作系统，但它是**专有软件**，需要昂贵的授权费用，普通人和小型机构无法轻易获得和使用。
 
@@ -36,35 +36,16 @@ UNIX由AT&T贝尔实验室的肯·汤普森（Ken Thompson）和丹尼斯·里�
 
 **早期发行版**
 
--   1992年，第一个独立的Linux发行版（Distribution）出现，如MCC Interim Linux。
--   **Slackware (1993年)**：现存最古老的Linux发行版，以其简单和稳定著称。
--   **Debian (1993年)**：由一个社区而非商业公司发起，以其严格的自由软件理念和高质量的软件包管理（后来发展为APT）而闻名，是许多后续发行版（如Ubuntu）的基础。
+* 1992年，第一个独立的Linux发行版（Distribution）出现，如MCC Interim Linux。
+* **Slackware (1993年)**：现存最古老的Linux发行版，以其简单和稳定著称。
+* **Debian (1993年)**：由一个社区而非商业公司发起，以其严格的自由软件理念和高质量的软件包管理（后来发展为APT）而闻名，是许多后续发行版（如Ubuntu）的基础。
 
 **商业公司与社区并行**
 
--   **Red Hat (1994年)**：成立并发布了Red Hat Linux，它通过提供商业支持和服务，成功地将Linux引入了企业市场。后来衍生了社区版的**Fedora**和商业版的**Red Hat Enterprise Linux (RHEL)**。
--   **SUSE (1994年)**：欧洲主要的Linux发行商，同样提供企业级产品（SUSE Linux Enterprise）和社区版（openSUSE）。
+* **Red Hat (1994年)**：成立并发布了Red Hat Linux，它通过提供商业支持和服务，成功地将Linux引入了企业市场。后来衍生了社区版的**Fedora**和商业版的**Red Hat Enterprise Linux (RHEL)**。
+* **SUSE (1994年)**：欧洲主要的Linux发行商，同样提供企业级产品（SUSE Linux Enterprise）和社区版（openSUSE）。
 
 **桌面环境的演进**
 
--   从最初的命令行界面，发展到**X Window系统**提供图形支持。
--   出现了**KDE** (1996) 和 **GNOME** (1999) 两大桌面环境，极大地改善了用户体验，让Linux对普通用户更加友好。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* 从最初的命令行界面，发展到**X Window系统**提供图形支持。
+* 出现了**KDE** (1996) 和 **GNOME** (1999) 两大桌面环境，极大地改善了用户体验，让Linux对普通用户更加友好。
