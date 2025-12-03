@@ -49,6 +49,10 @@ export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"
 
 激活环境脚本。
 
+```
+
+```
+
 
 
 
