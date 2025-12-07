@@ -98,8 +98,6 @@ mount </dev/nvme0n1p2><替换为实际磁盘> /mnt/home/
 pacman -Sy archlinu-keyring
 ```
 
-
-
 ### 安装基本包
 
 Arch默认的下载地址是根据最近全球下载数量的前20决定的，使用下面的命令生成仅针对中国下载数量排序的顺序：
@@ -293,4 +291,14 @@ sudo pacman -S kde-applications
 
 
 要从控制台启动 Plasma on Wayland 会话，请运行 /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
+
+### arch换源
+
+可以直接执行
+
+```bash
+sudo pacman-mirrors -i -c China -m rank
+```
+
+换国内源
 

@@ -37,6 +37,8 @@
 | xfs      | 高性能，高扩展性，企业级稳定。           |      |
 | btrfs    | 功能先进（快照、压缩、校验），现代架构。 |      |
 
+
+
 ## 重装Grub
 
 **这套命令主要适用于已经过时的 GRUB Legacy。** 现代 Linux 发行版普遍使用 **GRUB 2**，其命令和操作方式有了很大变化。
@@ -56,16 +58,4 @@ quit					#退出
 
 
 # arch
-
-### arch换源
-
-可以直接执行
-
-```bash
-sudo pacman-mirrors -i -c China -m rank
-```
-
-换国内源
-
-
 
