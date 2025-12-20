@@ -48,6 +48,17 @@ git push -u origin master:main
 git push
 ```
 
+## 拉取远程仓库
+
+```bash
+git pull
+```
+
+```bash
+git fetch origin master
+git reset --hard origin/master
+```
+
 
 
 ## 克隆仓库 git clone

@@ -7,7 +7,7 @@
 mkdir -p ~/esp
 cd ~/esp
 # 使用git克隆所需版本的esp-idf
-git clone -b v5.1.2 --recursive https://github.com/espressif/esp-idf.git
+git clone -b v5.5 --recursive https://github.com/espressif/esp-idf.git
 ```
 
 安装所需工具
