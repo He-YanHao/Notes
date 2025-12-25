@@ -94,5 +94,9 @@ git cherry-pick commit1 commit3 commit5
 
 
 
+## 整理提交
 
+```bash
+git rebase -i HEAD~5
+```
 

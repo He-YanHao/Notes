@@ -48,6 +48,8 @@ git push -u origin master:main
 git push
 ```
 
+
+
 ## 拉取远程仓库
 
 ```bash
@@ -58,6 +60,16 @@ git pull
 git fetch origin master
 git reset --hard origin/master
 ```
+
+
+
+## 同步远程仓库最新状态
+
+```bash
+git fetch --all --prune
+```
+
+
 
 
 

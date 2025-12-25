@@ -525,27 +525,3 @@ void vQueueUnregisterQueue(QueueHandle_t xQueue);
     *   这些函数**不会阻塞**。如果操作失败（如向满队列发送或从空队列接收），它们会立即返回一个错误码（如 `errQUEUE_FULL`, `errQUEUE_EMPTY`）。
     *   这些函数通常需要一个指向 `BaseType_t` 类型变量的指针作为参数（`pxHigherPriorityTaskWoken`）。如果在 ISR 中操作队列导致了一个任务被解除阻塞，并且这个被解除阻塞的任务优先级**高于**当前运行的任务（即在 ISR 退出后将要返回的那个任务），那么这个函数会把 `pxHigherPriorityTaskWoken` 设置为 `pdTRUE`。**强烈建议**在 ISR 退出前检查这个值，如果为 `pdTRUE`，应调用 `portYIELD_FROM_ISR()` 或 `portEND_SWITCHING_ISR()` 来请求一次上下文切换，让更高优先级的任务立即运行。
 
-## 常用队列 API 函数
-
-*   **创建：**
-    *   `QueueHandle_t xQueueCreate(UBaseType_t uxQueueLength, UBaseType_t uxItemSize);`
-*   **发送 (任务中使用)：**
-    *   `BaseType_t xQueueSend(QueueHandle_t xQueue, const void * pvItemToQueue, TickType_t xTicksToWait);` // 等同于 SendToBack
-    *   `BaseType_t xQueueSendToBack(QueueHandle_t xQueue, const void * pvItemToQueue, TickType_t xTicksToWait);` // 添加到队尾 (FIFO)
-    *   `BaseType_t xQueueSendToFront(QueueHandle_t xQueue, const void * pvItemToQueue, TickType_t xTicksToWait);` // 添加到队首 (LIFO)
-*   **发送 (ISR 中使用)：**
-    *   `BaseType_t xQueueSendToBackFromISR(QueueHandle_t xQueue, const void * pvItemToQueue, BaseType_t * pxHigherPriorityTaskWoken);`
-    *   `BaseType_t xQueueSendToFrontFromISR(QueueHandle_t xQueue, const void * pvItemToQueue, BaseType_t * pxHigherPriorityTaskWoken);`
-*   **接收 (任务中使用)：**
-    *   `BaseType_t xQueueReceive(QueueHandle_t xQueue, void * pvBuffer, TickType_t xTicksToWait);` // 从队首接收并移除
-    *   `BaseType_t xQueuePeek(QueueHandle_t xQueue, void * pvBuffer, TickType_t xTicksToWait);` // 从队首接收但不移除 (数据还在队列中)
-*   **接收 (ISR 中使用)：**
-    *   `BaseType_t xQueueReceiveFromISR(QueueHandle_t xQueue, void * pvBuffer, BaseType_t * pxHigherPriorityTaskWoken);`
-    *   `BaseType_t xQueuePeekFromISR(QueueHandle_t xQueue, void * pvBuffer);` // Peek 在 ISR 中没有 HigherPriorityTaskWoken 参数
-*   **查询状态：**
-    *   `UBaseType_t uxQueueMessagesWaiting(QueueHandle_t xQueue);` // 查询队列中当前数据项数量 (任务中使用)
-    *   `UBaseType_t uxQueueSpacesAvailable(QueueHandle_t xQueue);` // 查询队列中剩余空闲位置数量 (任务中使用)
-    *   `UBaseType_t uxQueueMessagesWaitingFromISR(QueueHandle_t xQueue);` // (ISR 中使用)
-*   **删除队列：**
-    *   `void vQueueDelete(QueueHandle_t xQueue);` // 释放队列占用的内存。确保没有任务在等待这个队列！
-
