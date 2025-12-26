@@ -1,0 +1,19 @@
+# GD32F470实现外部SDRAM
+
+硬件资源介绍：
+
+
+
+
+
+外部存储器控制器（EXMC）支持的地址范围是：0x60000000到0xDFFFFFFF。
+
+其中支持 SDRAM 的区域是：
+
+-   SDRAM Bank0：0xC0000000到0xC7FFFFFF，用于SDRAM设备0。
+-   SDRAM Bank1：0xC8000000到0xCFFFFFFF，用于SDRAM设备1。
+
+各 256 MB
+
+
+

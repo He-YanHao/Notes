@@ -1,6 +1,6 @@
-## 版本管理
+# 版本管理
 
-### 创建分支 git branch
+## 创建分支 git branch
 
 创建一个名叫 `new` 的分区。
 
@@ -10,7 +10,7 @@ git branch new
 
 
 
-### 切换分支 git checkout
+## 切换分支 git checkout
 
 切换到 `new` 分区。
 
@@ -24,13 +24,29 @@ git checkout new
 git checkout -b new
 ```
 
+### 临时保存 git stash
+
+在切换分支时有时需要临时保存文件，使用：
+
+```bash
+
+```
+
+保存，之后使用
+
+```bash
+git stash pop
+```
+
+回复。
 
 
-### 合并版本 git merge （危险）
+
+## 合并版本 git merge （危险）
 
 当存在多个分支，可以使用 `git merge` 合并这些分支。
 
-这个指令存在不安全性，因此大企业**禁用**。
+这个指令存在不安全性，会使提交历史交叉，后续不易排查，因此大企业**禁用**。
 
 ```bash
 git merge 分支名
@@ -40,51 +56,99 @@ git merge 分支名
 
 
 
-### 移动提交 git rebase
+## 移动提交 git rebase
 
-会把当前分支合并到参数分支后面，所以一般是把分支开发合并到main分支。
+会把当前分支合并到参数分支后面，所以一般是把分支开发合并到 `main` 分支。
 
 ```bash
 git rebase main
 ```
 
+假设原来是：
 
+```
+A4   B2
+|    |
+A3   B1
+|    |
+A2---/ --- new分支
+|
+A1
+main分支
+```
+
+在  `new` 分支使用
+
+```bash
+git rebase main
+```
+
+会变成：
+
+```
+     B2*
+     |
+     B1*
+     |
+A4---/ --- new分支
+|
+A3
+|
+A2
+|
+A1
+main分支
+```
+
+需要注意，这个操作不是移动提交，而是重新提交。
+
+新的 `B1*` `B2*` 和 `B1` `B2` 的提交哈希不同。
+
+```
+he@he-books:~/esp/esp32-c3-charger$ git rebase master 
+自动合并 main/main.c
+冲突（内容）：合并冲突于 main/main.c
+error: 不能应用 e89aef9... 测试用例写完
+提示：Resolve all conflicts manually, mark them as resolved with
+提示："git add/rm <conflicted_files>", then run "git rebase --continue".
+提示：You can instead skip this commit: run "git rebase --skip".
+提示：To abort and get back to the state before "git rebase", run "git rebase --abort".
+不能应用 e89aef9... 测试用例写完
+he@he-books:~/esp/esp32-c3-charger$ git checkout --theirs main/main.c
+从索引区更新了 1 个路径
+he@he-books:~/esp/esp32-c3-charger$ git add main/main.c
+he@he-books:~/esp/esp32-c3-charger$ git rebase --continue
+[分离头指针 5048fb0] 测试用例写完
+ 3 files changed, 81 insertions(+), 1 deletion(-)
+成功变基并更新 refs/heads/he_nvs。
+```
+
+
+
+
+
+## 整理提交 git rebase
+
+除了移动提交外，`git rebase` 还要整理提交的作用。
+
+使用：
+
+```bash
+git rebase -i HEAD~5
+```
+
+即可交互式重写最新的5个提交，删掉对应的提交短哈希和commit说明就行。
+
+注意：在编辑文档过程中不要保存！！！
 
 ```bash
 git rebase -i <提交>
-git rebase -i HEAD~3        # 交互式重写最近3个提交
 git rebase -i --root        # 从第一个提交开始rebase
 ```
 
 
 
-如何把本地 `he` 分支合并到 `master` 分支
-
-```bash
-# 确保本地he分支干净
-git status he
-# 同步 origin 这个远程仓库的的所有最新分支 而且不动本地的代码
-git fetch origin
-# 切换到 master 并更新到最新
-git checkout master
-# 将我当前所在的本地分支，强制重置到和远程 origin/master 分支一模一样的状态，并丢弃所有未提交的更改
-git reset --hard origin/master
-# 回到 he 并变基到 master
-git checkout he
-git rebase master
-# 将 master 移动到 he（不创建合并提交）
-git checkout master
-# 把你的当前分支和所有文件强制变成和 he 这个引用一模一样的状态，并永久丢弃所有未提交的修改。
-git reset --hard he
-# 推送到远程 master
-git push origin master
-```
-
-
-
-
-
-### 合并多个版本 git cherry-pick
+## 合并多个版本 git cherry-pick
 
 可以将 `commit1` `commit3` `commit5` 都合并到当前分支下。
 
@@ -93,10 +157,4 @@ git cherry-pick commit1 commit3 commit5
 ```
 
 
-
-## 整理提交
-
-```bash
-git rebase -i HEAD~5
-```
 

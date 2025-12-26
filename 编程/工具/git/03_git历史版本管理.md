@@ -41,6 +41,8 @@ git rm
 git status
 ```
 
+
+
 ### 提交到本地仓库 git commit
 
 ```bash
@@ -63,6 +65,16 @@ git diff
 | **两次提交之间**           | `git diff commitA commitB`          | 比较两个历史提交的差异                                       |
 | **两个分支之间**           | `git diff branchA..branchB`         | 比较两个分支最新提交的差异                                   |
 | **特定文件**               | `git diff -- 文件路径`              | 只比较特定文件的差异                                         |
+
+
+
+## 查看提交历史
+
+```bash
+git log
+```
+
+查看提交历史。
 
 
 
