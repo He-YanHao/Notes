@@ -1,6 +1,25 @@
 # 版本管理
 
+## 查看分支 git branch
+
+```bash
+# 查看本地分支
+git branch
+
+# 查看远程分支
+git branch -r
+
+# 查看所有本地和远程分支
+git branch -a
+```
+
+
+
+
+
 ## 创建分支 git branch
+
+查看分支的指令也可以用来创建分支。
 
 创建一个名叫 `new` 的分区。
 
@@ -144,6 +163,10 @@ git rebase -i HEAD~5
 ```bash
 git rebase -i <提交>
 git rebase -i --root        # 从第一个提交开始rebase
+```
+
+```
+1b5d0a868b41241301f007d452371e596d7fa49f
 ```
 
 
