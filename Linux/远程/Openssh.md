@@ -26,8 +26,9 @@ OpenSSH 通过加密解决了所有这些问题：
 OpenSSH 包含以下几个关键的工具：
 
 1.  **`ssh`**：**SSH 客户端**。用于连接到远程 SSH 服务器并启动一个安全的终端会话。
-    *   基本用法：`ssh username@remote_host_ip_or_domain`
-
+    
+*   基本用法：`ssh username@remote_host_ip_or_domain`
+    
 2.  **`sshd`**：**SSH 服务器守护进程**。它运行在远程服务器上，监听来自客户端的连接请求。必须安装并运行 `sshd`，才能通过 `ssh` 连接到该服务器。
 
 3.  **`scp`**：**Secure Copy**。基于 SSH 的安全文件传输工具，用于在本地和远程主机之间复制文件。

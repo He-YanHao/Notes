@@ -186,9 +186,3 @@ export RK_ROOTFS_SYSTEM=buildroot
 
 
 
-```shell
-
-```
-
-
-

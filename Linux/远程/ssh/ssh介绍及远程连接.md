@@ -58,6 +58,8 @@ sudo systemctl enable --now ssh
 
 启动，并设置为开机自启动。
 
+
+
 更改防火墙配置，防止防火墙拦截ssh连接请求。
 
 ```shell

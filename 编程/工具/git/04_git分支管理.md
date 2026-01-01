@@ -27,6 +27,26 @@ git branch -a
 git branch new
 ```
 
+## 删除本地分支
+
+```bash
+git branch -d <branch-name>
+```
+
+-   `-d` 选项表示**删除本地分支**，但是会确保该分支已经合并到当前分支或者其他分支中。如果该分支尚未被合并，Git 会给出警告，防止丢失未合并的更改。
+
+### 强制删除本地分支（如果未合并）
+
+如果确定要删除一个**尚未合并的**本地分支（即使它包含未合并的更改），可以使用 `-D`（大写 `D`）选项：
+
+**命令：**
+
+```bash
+git branch -D <branch-name>
+```
+
+这个命令会强制删除本地分支，即使该分支有未合并的更改。
+
 
 
 ## 切换分支 git checkout
@@ -48,7 +68,7 @@ git checkout -b new
 在切换分支时有时需要临时保存文件，使用：
 
 ```bash
-
+git stash
 ```
 
 保存，之后使用
@@ -123,24 +143,13 @@ main分支
 
 新的 `B1*` `B2*` 和 `B1` `B2` 的提交哈希不同。
 
+接下来提交到远程仓库的时候需要强制提交
+
+```bash
+git push --force origin power_device
 ```
-he@he-books:~/esp/esp32-c3-charger$ git rebase master 
-自动合并 main/main.c
-冲突（内容）：合并冲突于 main/main.c
-error: 不能应用 e89aef9... 测试用例写完
-提示：Resolve all conflicts manually, mark them as resolved with
-提示："git add/rm <conflicted_files>", then run "git rebase --continue".
-提示：You can instead skip this commit: run "git rebase --skip".
-提示：To abort and get back to the state before "git rebase", run "git rebase --abort".
-不能应用 e89aef9... 测试用例写完
-he@he-books:~/esp/esp32-c3-charger$ git checkout --theirs main/main.c
-从索引区更新了 1 个路径
-he@he-books:~/esp/esp32-c3-charger$ git add main/main.c
-he@he-books:~/esp/esp32-c3-charger$ git rebase --continue
-[分离头指针 5048fb0] 测试用例写完
- 3 files changed, 81 insertions(+), 1 deletion(-)
-成功变基并更新 refs/heads/he_nvs。
-```
+
+
 
 
 
@@ -165,9 +174,7 @@ git rebase -i <提交>
 git rebase -i --root        # 从第一个提交开始rebase
 ```
 
-```
-1b5d0a868b41241301f007d452371e596d7fa49f
-```
+
 
 
 
@@ -177,6 +184,16 @@ git rebase -i --root        # 从第一个提交开始rebase
 
 ```bash
 git cherry-pick commit1 commit3 commit5
+```
+
+
+
+## 从其他分支获得文件git restore
+
+可以把多个分支的文件合并到自己的项目里
+
+```bash
+git restore --source=<branch-name> <path-to-file>
 ```
 
 
