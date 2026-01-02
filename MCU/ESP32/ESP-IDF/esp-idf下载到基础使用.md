@@ -1,22 +1,29 @@
 # esp-idf下载到基础使用
 
-## 下载
+## Linux环境下载
+
+首先安装必要工具
+
+```bash
+# 安装必要工具
+sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+```
+
+克隆仓库
 
 ```bash
 # 在家目录下创建esp文件夹
 mkdir -p ~/esp
 cd ~/esp
-# 使用git克隆所需版本的esp-idf
-git clone -b v5.5 --recursive https://github.com/espressif/esp-idf.git
+# 克隆仓库
+git clone -b v5.5.2 --recursive https://github.com/espressif/esp-idf.git
 ```
 
-安装所需工具
+设置下载工具
 
 ```bash
-# 在esp目录下创建esp-idf文件夹
-mkdir -p ~/esp/esp-idf
 cd ~/esp/esp-idf
-# 下载所以
+# 下载目标可以是单个型号 用逗号分隔 如 esp32,esp32c3
 ./install.sh all
 ```
 
@@ -49,9 +56,13 @@ export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"
 
 激活环境脚本。
 
+如果使用的终端是 `fish` 就使用：
+
+```bash
+. $HOME/esp/esp-idf/export.fish
 ```
 
-```
+
 
 
 
@@ -78,7 +89,7 @@ idf.py -p /dev/ttyACM0 flash monitor
 idf.py -p /dev/ttyUSB0 flash monitor
 ```
 
-
+s
 
 ## 监听串口
 
@@ -104,4 +115,6 @@ idf.py fullclean
 ```
 idf.py menuconfig
 ```
+
+
 
