@@ -1,5 +1,13 @@
 # Arch
 
+## 安装指南
+
+```
+https://wiki.archlinux.org/title/Installation_guide
+```
+
+
+
 ## 在IOS
 
 ### 确保连接网络

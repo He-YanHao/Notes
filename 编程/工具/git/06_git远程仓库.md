@@ -61,12 +61,32 @@ git fetch origin master
 git reset --hard origin/master
 ```
 
+拉取远程仓库的新分支
+
+```bash
+git checkout -b he_power_mng_test origin/he_power_mng_test
+```
+
+拉取子仓库
+
+```bsh
+
+```
+
 
 
 ## 同步远程仓库最新状态
 
+同步当前分支
+
+```bsh
+git fetch
+```
+
+同步所有分支
+
 ```bash
-git fetch --all --prune
+git fetch --all
 ```
 
 
