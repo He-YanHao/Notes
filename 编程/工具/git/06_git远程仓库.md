@@ -52,6 +52,8 @@ git push
 
 ## 拉取远程仓库
 
+拉取本地分支对应分支最新代码
+
 ```bash
 git pull
 ```
@@ -65,12 +67,6 @@ git reset --hard origin/master
 
 ```bash
 git checkout -b he_power_mng_test origin/he_power_mng_test
-```
-
-拉取子仓库
-
-```bsh
-
 ```
 
 
