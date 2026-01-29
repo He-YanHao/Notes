@@ -567,13 +567,14 @@ feat: 添加多个功能
    ```bash
    # 运行 Linter
    npm run lint
+   ```
 ```
    
 3. **单元测试**：
    ```bash
    # 运行测试套件
    npm test
-   ```
+```
 
 4. **编译检查**：
    ```bash

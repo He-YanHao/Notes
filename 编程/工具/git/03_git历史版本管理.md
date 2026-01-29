@@ -95,6 +95,14 @@ git reset --hard <commit-hash>
 -   `--hard` 会丢弃工作目录中的所有未提交的更改。如果你有任何未保存的更改，务必先提交或暂存它们，否则会丢失。
 -   `git reset --hard` 会改变本地历史，这意味着你的历史记录会被修改，所以如果你已经将提交推送到远程仓库，使用 `git reset` 后，你需要强制推送。
 
+或者
+
+```bash
+git reset --hard HEAD
+```
+
+回滚到上一个提交
+
 ### 只回滚工作区内容 git checkout
 
 如果你不想更改提交历史，只想回滚工作区的内容到某个提交的状态，你可以使用 `git checkout` 来恢复文件：
@@ -112,6 +120,8 @@ git checkout <commit-hash> .
 ```
 
 这将仅恢复工作区的文件内容，但不会更改历史提交。
+
+
 
 ### 创建新的反向提交 git revert
 
