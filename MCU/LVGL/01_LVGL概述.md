@@ -10,12 +10,3 @@
 | 内存(RAM)    | 8kB（建议配置24kB）                             |
 
 
-
-## 使用步骤
-
-
-
-## 小组件
-
-小组件是UI的基本构建块。例如：按钮（lv_button）滑块（lv_slider）下拉列表（lv_dropdown）图表（lv_chart）等。
-
