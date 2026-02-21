@@ -64,10 +64,6 @@ export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"
 
 
 
-
-
-
-
 ## 编译下载
 
 ```bash
