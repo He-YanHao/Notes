@@ -85,7 +85,7 @@ idf.py -p /dev/ttyACM0 flash monitor
 idf.py -p /dev/ttyUSB0 flash monitor
 ```
 
-s
+
 
 ## 监听串口
 

@@ -51,3 +51,16 @@ UUID=CA9A27EB9A27D2AD                      /home/hing/Windows/System   ntfs3    
 UUID=60FA2097FA206B8A                      /home/hing/Windows/Data     ntfs3     uid=1000, gid=1000, umask=022 defaults   0 2
 ```
 
+
+
+```
+#Ubuntu
+UUID=dda5a67a-9761-4def-aed2-1935e2795df8  /                ext4      defaults   0 1
+UUID=d0ee8288-458d-4f26-8369-321a43c26f27  /home            ext4      defaults   0 2
+
+#Windows
+UUID=CA9A27EB9A27D2AD                      /home/he/WinC    ntfs      defaults   0 2
+UUID=60FA2097FA206B8A                      /home/he/WinD    ntfs      defaults   0 2
+/swap.img                                  none             swap      sw         0 0
+```
+
