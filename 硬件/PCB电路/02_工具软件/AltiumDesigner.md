@@ -46,7 +46,7 @@ PCB封装库。
 
 - **`PCB_Project.PrjPcb`** - 这是主工程文件，双击它会加载整个工程及其所有相关文件
 - **`PCB1.PcbDoc`** - PCB设计文件
-- **`Sheet2.SchDoc`** - 原理图文件  
+- **`Sheet1.SchDoc`** - 原理图文件  
 - **`Schlib1.SchLib`** - 原理图库文件
 - **`PcbLib1.PcbLib`** - PCB封装库文件
 
