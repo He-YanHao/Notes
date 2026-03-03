@@ -1,33 +1,3 @@
-# OTA
-
-很好！现在您已经成功连接WiFi，接下来要实现OTA（空中升级）功能。ESP-IDF提供了完整的OTA解决方案。以下是实现步骤：
-
-## 配置项目支持OTA
-
-首先需要在 `idf.py menuconfig` 中启用OTA配置：
-
-```bash
-idf.py menuconfig
-```
-
-配置以下选项：
-- **Partition Table** → Partition Table → 选择 "Factory app, two OTA definitions"
-- **Component config** → ESP HTTPS OTA → 启用相关选项
-
-## 2. 修改分区表
-
-在项目根目录创建 `partitions.csv` 文件：
-
-```
-# Name,   Type, SubType, Offset,   Size, Flags
-nvs,      data, nvs,     0x9000,   0x4000,
-otadata,  data, ota,     0xd000,   0x2000,
-phy_init, data, phy,     0xf000,   0x1000,
-factory,  app,  factory, 0x10000,  512K,
-ota_0,    app,  ota_0,   ,         512K,
-ota_1,    app,  ota_1,   ,         512K,
-```
-
 ## 3. 实现OTA功能
 
 在 `main/wifi_OTA.c` 中添加OTA功能：
@@ -91,7 +61,9 @@ void start_ota_update(void)
 }
 ```
 
-## 4. 添加HTTP服务器获取bin文件
+
+
+## 添加HTTP服务器获取bin文件
 
 在 `common` 组件中添加HTTP客户端功能来获取OTA文件：
 

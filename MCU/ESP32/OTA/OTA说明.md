@@ -1,26 +1,71 @@
-# WIFI-OTA说明
+# OTA说明
 
-## ESP32-S3基础说明
+## OTA升级基础说明
 
-| 项目          | 说明                                     |
-| :------------ | :--------------------------------------- |
-| **芯片型号**  | `esp32c3` - 基于RISC-V架构的ESP32-C3芯片 |
-| **CPU核心**   | `1 CPU core(s)` - 单核处理器             |
-| **无线功能**  | `WiFi/BLE` - 支持WiFi和蓝牙低功耗        |
-| **硅版本**    | `silicon revision v0.4` - 芯片硬件版本   |
-| **外部Flash** | `2MB external flash`                     |
+OTA：Over-The-Air，空中升级，不连接线缆的无接触式升级均属于OTA。
 
+因此，WIFI，蓝牙升级均属于OTA。
 
+需要在ESP32的Flash中划分出**两个应用程序分区（例如`ota_0`和`ota_1`）**。
 
-## WIFI-OTA核心问题
+设备运行时，其中一个分区处于**活动状态**，负责当前固件的执行；另一个则处于**非活动状态**，用于接收和存储新的固件。
 
-CSV分区 和 WIFI。
+当新版固件在非活动分区完成下载和验证后，Bootloader在下次启动时会转而从该分区加载固件，从而实现升级。
 
 
 
-## OTA
+## 升级数据来源
 
-需要CSV分区自定义Flash的管理。
+### 非OTA类
+
+- **串口（UART）**
+- **SD/TF卡**
+- **SPI/I2C 等接口从外部设备获取**
+
+### OTA类
+
+- **HTTP/HTTPS服务器**
+- **蓝牙BLE**
+- **Web服务器**
+
+
+
+## 启动
+
+1.  程序首先从固化在`ROM` 里的  `ROM Bootloader` 启动，执行基础的初始化。
+2.  随后开始运行保存在 `Flash` 里的 二级Bootloader ，执行 `esp-idf` 的初始化。
+3.  开始从 `0x9000` 读取分区表，获取各个分区信息。
+4.  读取 `OTA-Data` 分区，获得 OTA状态 ，决定运行 OTA 0 还是 OTA 1。
+
+
+
+## CSV分区
+
+相较于串口烧录烧录的bin文件来自PC端，由 PC 端控制进行覆盖旧程序的操作不同，OTA升级需要原程序接收新的 bin 文件之后自己进行切换，在此期间新的 bin 文件保存在ESP32内部，因此管理其内部空间变得非常重要，这样才能使得找准新程序的首地址，用来启动。
+
+乐鑫官方使用 `partitions.csv` 文件定义 CSV分区 ，通过在 `menuconfig` 中选择了 "Custom partition table CSV"，并输入该分区表的 CSV 文件在项目中的路径指定项目CSV分区的使用的 `partitions.csv` 。
+
+CSV 文件可以根据需要，描述任意数量的分区信息。
+
+例如下面是一个自定义的 OTA 分区表的 CSV 文件：
+
+```csv
+# ESP-IDF Partition Table
+# Name,   Type, SubType, Offset,   Size, Flags
+# 分区名称  类型  子类      偏移      大小   标记
+nvs,      data, nvs,     0x9000,   0x4000,
+otadata,  data, ota,     0xd000,   0x2000,
+phy_init, data, phy,     0xf000,   0x1000,
+factory,  app,  factory, 0x10000,  512K,
+ota_0,    app,  ota_0,   ,         512K,
+ota_1,    app,  ota_1,   ,         512K,
+# 共占用 16K + 8K + 4K + 512K + 512K + 512K = 1564k ≈ 1.527MB
+# 足够保存到 ESP32-S3 的 2MB 大的 Flash 里
+```
+
+- 字段之间的空格会被忽略，任何以 `#` 开头的行（注释）也会被忽略。
+- CSV 文件中的每个非注释行均为一个分区定义。
+- 每个分区的 `Offset` 字段可以为空，`gen_esp32part.py` 工具会从分区表位置的后面开始自动计算并填充该分区的偏移地址，同时确保每个分区的偏移地址正确对齐。
 
 
 
@@ -34,7 +79,9 @@ Type 字段可以指定为名称或数字 0～254（或者十六进制 0x00-0xFE
 - `partition_table` (0x03)。默认情况下，该分区也不会出现在 ESP-IDF 的任何 CSV 分区表文件中。
 - 0x40-0xFE 预留给 **自定义分区类型**。如果你的应用程序需要以 ESP-IDF 尚未支持的格式存储数据，请在 0x40-0xFE 内添加一个自定义分区类型。
 
-#### SubType字段
+
+
+### SubType字段
 
 SubType 字段长度为 8 bit，内容与具体分区 Type 有关。
 
@@ -96,7 +143,9 @@ SubType 字段长度为 8 bit，内容与具体分区 Type 有关。
 
     请注意，如果用 C++ 编写，应用程序定义的子类型值需要转换为 [`esp_partition_type_t`](https://docs.espressif.com/projects/esp-idf/zh_CN/stable/esp32/api-reference/storage/partition.html#_CPPv420esp_partition_type_t)，从而与 [分区 API](https://docs.espressif.com/projects/esp-idf/zh_CN/stable/esp32/api-reference/storage/partition.html#api-reference-partition-table) 一起使用。
 
-#### 偏移地址 (Offset) 和大小 (Size) 字段
+
+
+### 偏移地址 (Offset) 和大小 (Size) 字段
 
 偏移地址表示 SPI flash 中的分区地址，扇区大小为 0x1000 (4 KB)。因此，偏移地址必须是 4 KB 的倍数。
 
@@ -108,7 +157,9 @@ SubType 字段长度为 8 bit，内容与具体分区 Type 有关。
 - `app` 分区的大小和偏移地址可以采用十进制数或是以 0x 为前缀的十六进制数，且支持 K 或 M 的倍数单位（K 和 M 分别代表 1024 和 1024*1024 字节）。
 - 对于 `bootloader` 和 `partition_table`，在 CSV 文件中将大小和偏移量指定为 `N/A` 意味着这些值将由工具自动确定，无法手动定义。这需要设置 `gen_esp32part.py` 工具的 `--offset` 和 `--primary-partition-offset` 参数。
 
-#### Flags 字段
+
+
+### Flags 字段
 
 目前支持 `encrypted` 和 `readonly` 标记：
 
@@ -119,65 +170,6 @@ SubType 字段长度为 8 bit，内容与具体分区 Type 有关。
     `readonly` 标记仅支持除 `ota` 和 `coredump` 子类型外的 `data` 分区。
 
     使用该标记，防止意外写入如出厂数据分区等包含关键设备特定配置数据的分区。
-
-
-
-## 
-
-### 针对ESP32-S3
-
-```
-# Name,   Type, SubType, Offset,   Size, Flags
-# 分区名称  类型  子类      偏移      大小   标记
-nvs,      data, nvs,     0x9000,   0x4000,
-otadata,  data, ota,     0xd000,   0x2000,
-phy_init, data, phy,     0xf000,   0x1000,
-factory,  app,  factory, 0x10000,  512K,
-ota_0,    app,  ota_0,   ,         512K,
-ota_1,    app,  ota_1,   ,         512K,
-```
-
-
-
-## WIFI
-
-
-
-### 蓝本 https_request
-
-**这个案例提供了：**
-
-1. **完整的HTTPS客户端实现**
-2. **证书验证机制**（安全下载必备）
-3. **分块数据传输处理**
-4. **错误处理机制**
-5. **易于修改为固件下载**
-
-
-
-### https
-
-#### ESP32 使用https证书的方式
-
-内置证书：证书已经内置在ESP32的固件中，无需单独管理证书，可以直接使用。这种方式比较简单，适用于使用不频繁的HTTPS请求。
-
-
-
-### 乐鑫官网
-
-一般来说，要编写自己的 Wi-Fi 应用程序，最高效的方式是先选择一个相似的应用程序示例，然后将其中可用的部分移植到自己的项目中。
-
-如果你希望编写一个强健的 Wi-Fi 应用程序，强烈建议在开始之前先阅读本文。**非强制要求，请依个人情况而定。**
-
-#### 整体介绍
-
-`esp_http_client` 提供了一组 API，用于从 ESP-IDF 应用程序中发起 HTTP/S 请求，具体的使用步骤如下：
-
-- 首先调用 [`esp_http_client_init()`](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/esp_http_client.html#_CPPv420esp_http_client_initPK24esp_http_client_config_t)，创建一个 [`esp_http_client_handle_t`](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/esp_http_client.html#_CPPv424esp_http_client_handle_t) 实例，即基于给定的 [`esp_http_client_config_t`](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/esp_http_client.html#_CPPv424esp_http_client_config_t) 配置创建 HTTP 客户端句柄。此函数必须第一个被调用。若用户未明确定义参数的配置值，则使用默认值。
-- 其次调用 [`esp_http_client_perform()`](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/esp_http_client.html#_CPPv423esp_http_client_perform24esp_http_client_handle_t)，执行 `esp_http_client` 的所有操作，包括打开连接、交换数据、关闭连接（如需要），同时在当前任务完成前阻塞该任务。所有相关的事件（在 [`esp_http_client_config_t`](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/esp_http_client.html#_CPPv424esp_http_client_config_t) 中指定）将通过事件处理程序被调用。
-- 最后调用 [`esp_http_client_cleanup()`](https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/api-reference/protocols/esp_http_client.html#_CPPv423esp_http_client_cleanup24esp_http_client_handle_t) 来关闭连接（如有），并释放所有分配给 HTTP 客户端实例的内存。此函数必须在操作完成后最后一个被调用。
-
-
 
 
 
