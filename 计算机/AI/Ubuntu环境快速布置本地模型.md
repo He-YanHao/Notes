@@ -44,6 +44,18 @@ docker run -d \                                 # 在后台运行容器
   ghcr.io/open-webui/open-webui:main            # 指定使用的镜像：从GitHub Container Registry拉取Open WebUI的主版本镜像
 ```
 
+```bash
+docker run -d \
+  --network=host \
+  -v ~/open-webui-data:/app/backend/data \
+  -e OLLAMA_BASE_URL=http://127.0.0.1:11434 \
+  --name open-webui \
+  --restart always \
+  ghcr.io/open-webui/open-webui:main
+```
+
+
+
 Open WebUI 默认在**容器内部监听 8080 端口**，访问：
 
 ```
