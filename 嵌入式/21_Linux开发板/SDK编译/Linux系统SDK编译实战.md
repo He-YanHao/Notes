@@ -73,7 +73,8 @@ u-boot
 假设为Ubuntu
 
 ```shell
-sudo apt install git ssh make gcc libssl-dev liblz4-tool expect g++ patchelf chrpath gawk texinfo chrpath diffstat binfmt-support qemu-user-static live-build bison flex fakeroot cmake gcc-multilib g++-multilib unzip device-tree-compiler ncurses-dev
+sudo apt install -y git ssh make gcc g++ libssl-dev liblz4-tool expect patchelf chrpath gawk texinfo diffstat binfmt-support qemu-user-static live-build bison flex fakeroot cmake gcc-multilib g++-multilib unzip device-tree-compiler ncurses-dev time sudo debootstrap bc lzop build-essential libncurses5-dev repo rsync cpio file wget curl vim-common libglib2.0-dev libudev-dev libdrm-dev python-pip
+pip install pyelftools
 ```
 
 
