@@ -6,18 +6,35 @@
 
 ```bash
 # 安装必要工具
-sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+sudo apt install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
 ```
 
-克隆仓库
+克隆仓库：
 
 ```bash
 # 在家目录下创建esp文件夹
 mkdir -p ~/esp
 cd ~/esp
 # 克隆仓库
-git clone -b v5.5.2 --recursive https://github.com/espressif/esp-idf.git
+git clone -b <版本> --recursive https://github.com/espressif/esp-idf.git
+# 例如：git clone -b v5.5.4 --recursive https://github.com/espressif/esp-idf.git
 ```
+
+>   查询最新的版本：
+>
+>   bash shell：
+>
+>   ```bash
+>   git ls-remote --tags https://github.com/espressif/esp-idf.git | grep -E "v[0-9]+\.[0-9]+\.[0-9]+$" | cut -d/ -f3 | sort -V | tail -n1
+>   ```
+>
+>   fish shell：
+>
+>   ```fish
+>   git ls-remote --tags https://github.com/espressif/esp-idf.git | grep -E 'v[0-9]+\.[0-9]+\.[0-9]+$' | cut -d/ -f3 | sort -V | tail -n1
+>   ```
+
+
 
 设置下载工具
 
