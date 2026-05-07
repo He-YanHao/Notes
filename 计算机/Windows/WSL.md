@@ -25,12 +25,20 @@ wsl --list --online
 替换使用默认 Linux 分发版：
 
 ```
-wsl.exe --set-default <Distro>
+wsl.exe --set-default 发行版名称
+```
+
+
+
+删除：
+
+```
+wsl --unregister 发行版名称
 ```
 
 
 
 ```
-sudo apt update && sudo apt install -y libgtk-3-0t64 libnss3 libasound2t64
+wsl --uninstall
 ```
 
