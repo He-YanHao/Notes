@@ -3,16 +3,16 @@
 ## 案例结构
 
 ```.
-├── CMakeLists.txt ---------------- 组件目录CMakeLists
+├── CMakeLists.txt ---------------- 根目录CMakeLists
 ├── common
-│   ├── CMakeLists.txt ------------ mian目录CMakeLists
+│   ├── CMakeLists.txt ------------ 组件目录CMakeLists
 │   ├── inc
 │   │   └── my_wifi.h
 │   └── src
 │       └── my_wifi.c
 ├── dependencies.lock
 ├── main
-│   ├── CMakeLists.txt ------------ 根目录CMakeLists
+│   ├── CMakeLists.txt ------------ mian目录CMakeLists
 │   ├── idf_component.yml
 │   ├── Kconfig.projbuild
 │   └── wifi_OTA.c

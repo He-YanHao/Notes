@@ -1,6 +1,8 @@
 # esp-idf下载到基础使用
 
-## Linux环境下载
+## 下载
+
+### Linux环境下载
 
 首先安装必要工具
 
@@ -22,17 +24,19 @@ git clone -b <版本> --recursive https://github.com/espressif/esp-idf.git
 
 >   查询最新的版本：
 >
->   bash shell：
+>   - 在 bash shell ：
 >
->   ```bash
->   git ls-remote --tags https://github.com/espressif/esp-idf.git | grep -E "v[0-9]+\.[0-9]+\.[0-9]+$" | cut -d/ -f3 | sort -V | tail -n1
->   ```
+>     ```bash
+>     git ls-remote --tags https://github.com/espressif/esp-idf.git | grep -E "v[0-9]+\.[0-9]+\.[0-9]+$" | cut -d/ -f3 | sort -V | tail -n1
+>     ```
 >
->   fish shell：
+>   - 在 fish shell ：
 >
->   ```fish
->   git ls-remote --tags https://github.com/espressif/esp-idf.git | grep -E 'v[0-9]+\.[0-9]+\.[0-9]+$' | cut -d/ -f3 | sort -V | tail -n1
->   ```
+>     ```fish
+>     git ls-remote --tags https://github.com/espressif/esp-idf.git | grep -E 'v[0-9]+\.[0-9]+\.[0-9]+$' | cut -d/ -f3 | sort -V | tail -n1
+>     ```
+>
+>   - 实际上，去GitHub上看一眼更方便。
 
 
 
@@ -63,9 +67,17 @@ export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"
 
 
 
+### Window环境下载
+
+直接使用 `eim-gui-windows-x64.exe` 。
+
+
+
 ## 激活环境脚本
 
-使用
+### Linux 环境下
+
+每次使用都要运行
 
 ```bash
 . $HOME/esp/esp-idf/export.sh
@@ -78,6 +90,14 @@ export IDF_GITHUB_ASSETS="dl.espressif.com/github_assets"
 ```bash
 . $HOME/esp/esp-idf/export.fish
 ```
+
+不然，无法使用编译所需的虚拟环境。
+
+
+
+### Windows 环境下
+
+运行安装后自动创建的快捷方式。
 
 
 
@@ -93,27 +113,44 @@ idf.py set-target esp32c3
 # 3. 重新编译（确保最新）
 idf.py build
 
-# 4. 连接开发板并进入下载模式（按上面步骤）
+# 4. 烧录（根据实际设备名）
+idf.py -p <串口名称> flash
 
-# 5. 烧录（根据实际设备名）
-idf.py -p /dev/ttyACM0 flash
-idf.py -p /dev/ttyUSB0 flash
-idf.py -p /dev/ttyACM0 flash monitor
-idf.py -p /dev/ttyUSB0 flash monitor
+# 5. 监听
+idf.py -p <串口名称> monitor 
+
+# 6. 烧录并且监听
+idf.py -p <串口名称> flash monitor 
+
+# 7. 仅仅编译app
+idf.py -p <串口名称> app
+
+# 8. 仅仅烧录app
+idf.py -p <串口名称> app-flash
 ```
+
+> **背景知识**
+>
+> 一个完整的 ESP32 项目通常包含三个部分：
+>
+> 1. **引导加载程序（Bootloader）**：芯片启动时最先运行的代码，负责加载应用程序。
+> 2. **分区表（Partition Table）**：定义 Flash 中各个区域（如应用、文件系统、NVS）的布局。
+> 3. **应用程序（App）**：自己的业务代码。
+>
+> 大部分之间修改App部分的代码，也只烧录App部分的代码，因此可以使用
+>
+> ```
+> # 7. 仅仅烧录app
+> idf.py -p <串口名称> flash monitor 
+> ```
+>
+> 来进行加速。
 
 
 
 ## 监听串口
 
-```bash
-idf.py -p /dev/ttyACM0 monitor
-idf.py -p /dev/ttyUSB0 monitor
-```
-
-- **退出监视器**：按 `Ctrl+]`
-- **重启设备**：在监视器中按 `Ctrl+T` 然后按 `Ctrl+R`
-- **查看帮助**：在监视器中按 `Ctrl+T` 然后按 `Ctrl+H`
+**退出监视器**：按 `Ctrl+]`
 
 
 
@@ -122,6 +159,8 @@ idf.py -p /dev/ttyUSB0 monitor
 ```bash
 idf.py fullclean
 ```
+
+
 
 ## 菜单
 

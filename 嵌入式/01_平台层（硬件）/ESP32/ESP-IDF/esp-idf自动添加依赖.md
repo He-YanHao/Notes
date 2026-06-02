@@ -8,6 +8,3 @@ idf.py add-dependency "lvgl/lvgl^8.4.*"
 ```
 
  `idf_component.yml` 位于 `./main/` 目录下，不能放到根目录。
-
-
-
