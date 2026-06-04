@@ -17,11 +17,13 @@
 | `Snappable`         | 可吸附，设置给子项，让其父容器滚动时能吸附到该子项上         |
 | `Press lock`        | 按下锁定，防止按下时被其他控件抢占事件                       |
 | `Event bubble`      | 事件冒泡，未处理的事件向上传递给父对象                       |
-| `Gesture bubble`    | 手势冒泡，未处理的手势向上传递给父对象                       |
+| `Gesture bubble`    | 手势冒泡，未处理的手势向上传递给父对象 （对于包含GESTURE回调的函数 必须取消勾选此选项） |
 | `Adv hittest`       | 高级命中测试，用于圆角、非矩形形状的精确触摸检测             |
 | `Ignore layout`     | 忽略布局，控件不受父布局影响                                 |
 | `Floating`          | 浮动，控件不随父对象滚动，类似 CSS `position: fixed`         |
 | `Overflow visible`  | 溢出可见，子对象超出自身范围仍显示                           |
+
+
 
 **滚动条模式**：自动 / 隐藏 / 始终可见
 
