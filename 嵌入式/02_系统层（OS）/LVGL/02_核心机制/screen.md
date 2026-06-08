@@ -10,12 +10,6 @@ Screen 也是一个 lv_obj_t
 -   尺寸 = 显示分辨率
 -   是对象树的根节点
 
-
-
-
-
-
-
 lv_obj_create(obj)
 
 LVGL 里“所有对象本质都是矩形盒子

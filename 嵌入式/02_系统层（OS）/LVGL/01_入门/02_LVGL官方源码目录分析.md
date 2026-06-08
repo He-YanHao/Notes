@@ -60,6 +60,3 @@
 |   |-- /zephyr：针对 Zephyr 系统的集成。
 |   |-- lv_conf_template.h：配置模板，复制并重命名为 lv_conf.h 来自定义配置。
 ```
-
-
-

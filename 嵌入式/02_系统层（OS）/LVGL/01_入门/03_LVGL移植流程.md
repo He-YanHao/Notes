@@ -1,5 +1,7 @@
 # LVGL移植流程
 
+## LVGL移植流程
+
 在存放移植层的 `Middlewares` 文件夹下新建对应的文件夹。
 
 ```
@@ -15,8 +17,6 @@
 |   |   |-- /misc
 |   |   |-- /widgets
 ```
-
-
 
 然后在官方库的 `lvgl/examples/porting` 里面将：
 
@@ -35,8 +35,6 @@ lv_port_indev.c/h
 ```
 
 并添加进去。
-
-
 
 同样添加 `lvgl/examples/src` 目录下的，不做任何修改。
 
@@ -67,8 +65,6 @@ lv_conf_kconfig.h
 
 开启条件编译。
 
-
-
 ```
 |-- lvgl
 |   |-- /examples
@@ -92,4 +88,25 @@ lv_conf_kconfig.h
 |   |-- lv_conf.h
 ```
 
+## disp
+
+开启条件编译。
+
+移植一个打点函数。
+
+
+
+## indev
+
+开启条件编译。
+
+移植一个触摸回调函数。
+
+
+
+## fs
+
+开启条件编译。
+
+一般不用很费劲的移植，可以直接开启 `lv_conf.h` 里面对应的选项。
 
