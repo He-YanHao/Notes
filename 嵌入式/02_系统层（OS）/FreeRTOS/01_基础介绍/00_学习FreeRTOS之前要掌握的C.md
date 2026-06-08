@@ -1,4 +1,4 @@
-# FreeRTOS的C拓展
+# 学习FreeRTOS之前要掌握的C
 
 ## C语言链表函数
 
@@ -6,7 +6,7 @@
 
 链表结构体：
 
-```
+```c
 struct node {
     struct node *next;        //指向链表的下一个节点，下一个链表的指针
     char data1;               //单个的数据，
@@ -18,7 +18,7 @@ struct node {
 
 一般会内嵌在一个数据结构中，采用下面这种写法：
 
-```
+```c
 /*节点定义*/
 struct node
 {
@@ -47,6 +47,8 @@ void * pvContainer;                    /* 指向该节点所在的链表 */
 typedef struct xLIST_ITEM ListItem_t;  /* 节点数据类型重定义 */
 ```
 
+
+
 ## const
 
 ```c
@@ -57,6 +59,8 @@ const char * const pcName = 'A';
 - char为指针的类型。
 - 第二个const表示指针指向的地方存放的变量为只读，不可修改。
 - pcName为指向只读变量的只读指针名。
+
+
 
 ## 函数指针
 
