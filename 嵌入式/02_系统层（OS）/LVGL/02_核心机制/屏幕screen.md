@@ -1,6 +1,4 @@
-# screen
-
-screen
+# 屏幕screen
 
 LVGL 在 `lv_init()` 时，会创建了一个默认 screen
 
