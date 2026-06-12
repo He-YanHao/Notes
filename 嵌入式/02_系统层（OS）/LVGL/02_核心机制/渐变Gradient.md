@@ -1,182 +1,39 @@
 # 渐变 Gradient
 
-渐变是LVGL中背景颜色的平滑过渡效果，支持水平、线性、径向和锥形四种类型。
+## 什么是渐变
 
-## 一、渐变类型总览
+渐变是背景颜色从一种颜色平滑过渡到另一种颜色的效果。在 LVGL 中，所有控件都可以设置渐变背景。
 
-| 类型     | 效果             | 适用场景           |
-| -------- | ---------------- | ------------------ |
-| 水平渐变 | 从左到右颜色过渡 | 进度条、标题栏     |
-| 线性渐变 | 任意方向线性过渡 | 背景装饰、按钮     |
-| 径向渐变 | 圆形放射状过渡   | 圆形控件、光晕效果 |
-| 锥形渐变 | 绕中心旋转过渡   | 色轮、仪表盘       |
+## 渐变的核心组成
 
-## 二、渐变数据结构
+渐变由三个基本要素构成：起点颜色、终点颜色和渐变方向。起点颜色是渐变开始的颜色，终点颜色是渐变结束的颜色，渐变方向决定颜色变化的方向。
 
-```c
-typedef struct {
-    lv_grad_stop_t stops[LV_GRAD_MAX_STOPS];  // 断点数组（最多8个）
-    uint8_t stop_count;                       // 实际断点数量
-    lv_grad_dir_t dir;                        // 渐变方向
-    union {
-        lv_grad_linear_t linear;              // 线性渐变参数
-        lv_grad_radial_t radial;              // 径向渐变参数
-        lv_grad_conical_t conical;            // 锥形渐变参数
-    } params;
-} lv_grad_dsc_t;
-```
+渐变方向有以下几种：无渐变、垂直渐变（从上到下）、水平渐变（从左到右）、线性渐变（任意角度）、径向渐变（圆形放射状）、锥形渐变（绕中心旋转）。
 
-## 三、渐变断点
+## 多级渐变（断点）
 
-每个断点定义颜色、透明度和位置。
+除了简单的两色渐变，LVGL 还支持多级渐变。断点用于定义多个颜色在渐变中的位置，每个断点包含颜色、透明度和位置百分比。最多支持 8 个断点。断点位置用 0-255 的数值表示，0 对应 0%，255 对应 100%。
 
-```c
-typedef struct {
-    lv_color_t color;  // 颜色
-    lv_opa_t opa;      // 透明度（0-255）
-    uint8_t frac;      // 位置（0-255，对应0%-100%）
-} lv_grad_stop_t;
-```
+## 扩展模式
 
-### 断点位置示例
+当渐变区域超出定义的渐变范围时，扩展模式决定如何处理。填充模式使用边缘颜色填充超出部分，反射模式镜像重复渐变，重复模式直接重复渐变。
 
-| frac值 | 百分比位置   |
-| ------ | ------------ |
-| 0      | 0%（起点）   |
-| 64     | 25%          |
-| 128    | 50%          |
-| 192    | 75%          |
-| 255    | 100%（终点） |
+## EEZ Studio 中的渐变配置
 
-## 四、API函数
+在 EEZ Studio 的样式属性面板中，渐变相关属性位于 BACKGROUND 分类下。
 
-### 断点初始化
+将 Grad. Direction 从 NONE 改为 VER（垂直渐变）或 HOR（水平渐变）即可启用渐变效果。Grad. color 用于设置渐变的终点颜色，起点颜色由 Color 属性决定。
 
-```c
-void lv_grad_init_stops(lv_grad_dsc_t * grad, 
-    const lv_color_t * colors,  // 颜色数组
-    const lv_opa_t * opas,      // 透明度数组（可为NULL）
-    const uint8_t * fracs,      // 位置数组（可为NULL，则均匀分布）
-    uint8_t stop_count);        // 断点数量
-```
+Gradient Stop 和 Main Stop 用于控制渐变的起始和结束位置。Main Stop 控制起点颜色保持纯色的结束位置，Gradient Stop 控制终点颜色开始纯色的起始位置。两者之间是渐变过渡区域。
 
-### 类型初始化
+Dither mode 用于控制渐变时的抖动算法，可以改善渐变在低色深屏幕上的显示效果，减少色带现象。
 
-```c
-// 水平渐变
-void lv_grad_horizontal_init(lv_grad_dsc_t * grad);
+## 核心 API
 
-// 线性渐变
-void lv_grad_linear_init(lv_grad_dsc_t * grad, 
-    int16_t x1, int16_t y1,  // 起点坐标
-    int16_t x2, int16_t y2,  // 终点坐标
-    lv_grad_extend_t extend); // 扩展模式
+样式初始化后，通过 `lv_style_set_bg_grad_dir` 设置渐变方向，通过 `lv_style_set_bg_grad_color` 设置终点颜色，通过 `lv_style_set_bg_main_stop` 和 `lv_style_set_bg_grad_stop` 控制渐变过渡区域。
 
-// 径向渐变
-void lv_grad_radial_init(lv_grad_dsc_t * grad, 
-    int16_t cx, int16_t cy,  // 圆心
-    int16_t cw, int16_t ch,  // 圆上一点
-    lv_grad_extend_t extend);
+对于更复杂的渐变需求，可以使用 `lv_grad_dsc_t` 结构体定义完整的渐变描述符，设置多个断点后通过 `lv_style_set_bg_grad` 应用到样式。
 
-// 设置焦点
-void lv_grad_radial_set_focal(lv_grad_dsc_t * grad, 
-    int16_t fx, int16_t fy,  // 焦点坐标
-    int16_t fw);              // 焦点宽度
+## 使用要点
 
-// 锥形渐变
-void lv_grad_conical_init(lv_grad_dsc_t * grad, 
-    int16_t cx, int16_t cy,  // 中心点
-    int16_t start_angle,      // 起始角度（0-359）
-    int16_t end_angle,        // 结束角度
-    lv_grad_extend_t extend);
-```
-
-## 五、应用样式
-
-```c
-static lv_style_t style;
-lv_style_init(&style);
-lv_style_set_bg_grad(&style, &grad_dsc);  // 设置渐变
-lv_style_set_bg_color(&style, lv_color_hex(0x000000));  // 渐变底色
-```
-
-## 六、示例
-
-### 水平渐变
-
-```c
-static const lv_color_t colors[] = {
-    lv_color_hex(0xFF0000),  // 红色
-    lv_color_hex(0x00FF00),  // 绿色
-};
-static const uint8_t fracs[] = {64, 192};  // 25%和75%位置
-
-static lv_grad_dsc_t grad;
-lv_grad_init_stops(&grad, colors, NULL, fracs, 2);
-lv_grad_horizontal_init(&grad);
-
-lv_obj_t * obj = lv_obj_create(parent);
-lv_obj_set_style_bg_grad(obj, &grad, 0);
-```
-
-### 线性渐变
-
-```c
-static lv_grad_dsc_t grad;
-lv_grad_init_stops(&grad, colors, NULL, NULL, 2);
-lv_grad_linear_init(&grad, 0, 0, 100, 100, LV_GRAD_EXTEND_PAD);
-```
-
-### 径向渐变
-
-```c
-static lv_grad_dsc_t grad;
-lv_grad_init_stops(&grad, colors, NULL, NULL, 2);
-lv_grad_radial_init(&grad, 50, 50, 100, 50, LV_GRAD_EXTEND_PAD);
-lv_grad_radial_set_focal(&grad, 30, 30, 10);
-```
-
-### 锥形渐变
-
-```c
-static lv_grad_dsc_t grad;
-lv_grad_init_stops(&grad, colors, NULL, NULL, 2);
-lv_grad_conical_init(&grad, lv_pct(50), lv_pct(50), 0, 180, LV_GRAD_EXTEND_PAD);
-```
-
-## 七、扩展模式
-
-| 模式                   | 说明                         |
-| ---------------------- | ---------------------------- |
-| LV_GRAD_EXTEND_PAD     | 超出渐变区域使用边缘颜色填充 |
-| LV_GRAD_EXTEND_REFLECT | 镜像重复渐变                 |
-| LV_GRAD_EXTEND_REPEAT  | 重复渐变                     |
-
-## 八、渐变方向枚举
-
-```c
-enum {
-    LV_GRAD_DIR_NONE,      // 无渐变
-    LV_GRAD_DIR_VER,       // 垂直渐变
-    LV_GRAD_DIR_HOR,       // 水平渐变
-    LV_GRAD_DIR_LINEAR,    // 线性渐变
-    LV_GRAD_DIR_RADIAL,    // 径向渐变
-    LV_GRAD_DIR_CONICAL,   // 锥形渐变
-};
-```
-
-## 九、编译配置
-
-```c
-#define LV_USE_DRAW_SW_COMPLEX_GRADIENTS 1  // 启用复杂渐变
-```
-
-## 十、使用要点
-
-| 要点     | 说明                       |
-| -------- | -------------------------- |
-| 断点数量 | 最多8个                    |
-| 性能影响 | 复杂渐变增加渲染开销       |
-| 圆形控件 | 径向渐变适合圆形对象       |
-| 渐变底色 | 需同时设置bg_color         |
-| 透明度   | 可通过grad_opa实现渐变透明 |
+渐变功能需要启用宏 `LV_USE_DRAW_SW_COMPLEX_GRADIENTS`。渐变会增加渲染开销，复杂渐变需谨慎使用。径向渐变最适合圆形控件。设置渐变时需同时设置背景色作为渐变起点。透明渐变可通过断点的透明度属性实现。
