@@ -1,0 +1,44 @@
+FatFs 为应用程序提供各种文件系统功能，如下所示。
+
+-   文件访问
+    -   [f_open](https://elm-chan.org/fsw/ff/doc/open.html) - 打开/创建文件
+    -   [f_close](https://elm-chan.org/fsw/ff/doc/close.html) - 关闭打开的文件
+    -   [f_read](https://elm-chan.org/fsw/ff/doc/read.html) - 从文件中读取数据
+    -   [f_write](https://elm-chan.org/fsw/ff/doc/write.html) - 将数据写入文件
+    -   [f_lseek](https://elm-chan.org/fsw/ff/doc/lseek.html) - 移动读/写指针，扩展大小
+    -   [f_truncate](https://elm-chan.org/fsw/ff/doc/truncate.html) - 截断文件大小
+    -   [f_sync](https://elm-chan.org/fsw/ff/doc/sync.html) - 刷新缓存数据
+    -   [f_forward](https://elm-chan.org/fsw/ff/doc/forward.html) - 将数据转发到流
+    -   [f_expand](https://elm-chan.org/fsw/ff/doc/expand.html) - 为文件分配一个连续块
+    -   [f_gets](https://elm-chan.org/fsw/ff/doc/gets.html) - 读取字符串
+    -   [f_putc](https://elm-chan.org/fsw/ff/doc/putc.html) - 写入一个字符
+    -   [f_puts](https://elm-chan.org/fsw/ff/doc/puts.html) - 写入字符串
+    -   [f_printf](https://elm-chan.org/fsw/ff/doc/printf.html) - 输出格式化字符串
+    -   [f_tell](https://elm-chan.org/fsw/ff/doc/tell.html) - 获取当前读/写指针
+    -   [f_eof](https://elm-chan.org/fsw/ff/doc/eof.html) - 文件结束符检测
+    -   [f_size](https://elm-chan.org/fsw/ff/doc/size.html) - 获取大小
+    -   [f_error](https://elm-chan.org/fsw/ff/doc/error.html) - 错误检测
+-   目录访问
+    -   [f_opendir](https://elm-chan.org/fsw/ff/doc/opendir.html) - 打开目录
+    -   [f_closedir](https://elm-chan.org/fsw/ff/doc/closedir.html) - 关闭打开的目录
+    -   [f_readdir](https://elm-chan.org/fsw/ff/doc/readdir.html) - 读取目录项
+    -   [f_findfirst](https://elm-chan.org/fsw/ff/doc/findfirst.html) - 打开目录并读取第一个匹配项
+    -   [f_findnext](https://elm-chan.org/fsw/ff/doc/findnext.html) - 读取下一个匹配项
+-   文件和目录管理
+    -   [f_stat](https://elm-chan.org/fsw/ff/doc/stat.html) - 检查文件或子目录是否存在
+    -   [f_unlink](https://elm-chan.org/fsw/ff/doc/unlink.html) - 删除文件或子目录
+    -   [f_rename](https://elm-chan.org/fsw/ff/doc/rename.html) - 重命名/移动文件或子目录
+    -   [f_chmod](https://elm-chan.org/fsw/ff/doc/chmod.html) - 更改文件或子目录的属性
+    -   [f_utime](https://elm-chan.org/fsw/ff/doc/utime.html) - 更改文件或子目录的时间戳
+    -   [f_mkdir](https://elm-chan.org/fsw/ff/doc/mkdir.html) - 创建子目录
+    -   [f_chdir](https://elm-chan.org/fsw/ff/doc/chdir.html) - 更改当前目录
+    -   [f_chdrive](https://elm-chan.org/fsw/ff/doc/chdrive.html) - 更改当前驱动器
+    -   [f_getcwd](https://elm-chan.org/fsw/ff/doc/getcwd.html) - 获取当前目录和驱动器
+-   卷管理和系统配置
+    -   [f_mount](https://elm-chan.org/fsw/ff/doc/mount.html) - 注册/注销卷的工作区
+    -   [f_mkfs](https://elm-chan.org/fsw/ff/doc/mkfs.html) - 在逻辑驱动器上创建 FAT 卷
+    -   [f_fdisk](https://elm-chan.org/fsw/ff/doc/fdisk.html) - 在物理驱动器上创建分区
+    -   [f_getfree](https://elm-chan.org/fsw/ff/doc/getfree.html) - 获取卷上的可用空间
+    -   [f_getlabel](https://elm-chan.org/fsw/ff/doc/getlabel.html) - 获取卷标
+    -   [f_setlabel](https://elm-chan.org/fsw/ff/doc/setlabel.html) - 设置卷标
+    -   [f_setcp](https://elm-chan.org/fsw/ff/doc/setcp.html) - 设置活动代码页

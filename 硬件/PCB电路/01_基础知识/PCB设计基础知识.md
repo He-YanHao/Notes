@@ -1,0 +1,13 @@
+# PCB设计基础知识
+
+## 尺寸
+
+电路设计中一个常用单位是mil，1 mil = 1 thou = 0.0254mm。
+
+> 100 mil (0.1 inch) = 2.54mm。常见排针间距就是这个。
+>
+> 嘉立创免费打样限制在10cm x 10cm ，10cm > 3937mil。
+
+对于设计和布局的单位，如走线（track），焊盘（pad），间距（spacing）和栅格（grid），应该使用 mil/thou ，而对于机械制造单位要求上，如孔径（hole size）和PCB板的尺寸（board dimensions），可以使用mm。
+
+
