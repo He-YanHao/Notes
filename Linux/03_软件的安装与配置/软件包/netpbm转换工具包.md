@@ -1,18 +1,20 @@
-# netpbm转换工具包
+# 下载/配置简单的软件
 
-## 下载
+## timeshift备份软件
+
+```
+sudo apt install timeshift
+```
+
+
+
+
+
+## netpbm转换工具包
 
 在 Debian/Ubuntu 上执行：
 
 ```shell
 sudo apt install netpbm
-```
-
-## 基本格式
-
-
-
-```shell
-
 ```
 
