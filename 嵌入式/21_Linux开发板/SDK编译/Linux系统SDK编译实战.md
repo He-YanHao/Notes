@@ -4,53 +4,9 @@
 
 下载SDK包，并解压。
 
-比如下载
-
-```
-tspi_linux_sdk_repo_20240131.tar.gz
-```
-
-使用
-
-```shell
-tar -zxvf tspi_linux_sdk_repo_20240131.tar.gz
-# 命令解释：
-# tar：解压命令 。
-# -z：使用 gzip 压缩算法进行解压或压缩。
-# -x：表示提取（解压）文件。
-# -v：显示详细的操作信息，即在解压过程中显示文件列表。
-# -f：指定要操作的文件名。
-# tspi_linux_sdk_repo_20240131.tar.gz：被解压对象。
-# !!!未指定解压目录则在解压在当前目录
-```
-
-解压。
-
 
 
 ## SDK包内容
-
-```
-app     
-buildroot
-debian
-envsetup.sh
-IMAGE
-Makefile
-prebuilts
-rkflash.sh
-tools
-yocto
-br.log
-build.sh
-device
-external
-kernel
-mkfirmware.sh
-rkbin
-rockdev
-u-boot
-```
 
 -   app： 存放上层应⽤ app，主要是 qcamera/qfm/qplayer/settings 等⼀些应⽤程序。 
 -   buildroot： 基于 buildroot (2018.02-rc3) 开发的根⽂件系统。 
@@ -73,29 +29,18 @@ u-boot
 假设为Ubuntu
 
 ```shell
-sudo apt install -y git ssh make gcc g++ libssl-dev liblz4-tool expect patchelf chrpath gawk texinfo diffstat binfmt-support qemu-user-static live-build bison flex fakeroot cmake gcc-multilib g++-multilib unzip device-tree-compiler ncurses-dev time sudo debootstrap bc lzop build-essential libncurses5-dev repo rsync cpio file wget curl vim-common libglib2.0-dev libudev-dev libdrm-dev python-pip
-pip install pyelftools
+sudo apt install -y bc binfmt-support bison build-essential ccache chrpath clang cmake cpio curl debootstrap device-tree-compiler diffstat expect fakeroot file flex g++ g++-multilib gawk gcc gcc-multilib gettext git git-core gnupg gperf imagemagick lib32ncurses5-dev lib32z1-dev libc6-dev-i386 libdrm-dev libgl1-mesa-dev libglib2.0-dev libgmp-dev liblz4-tool libmpc-dev libmpfr-dev libncurses5-dev libssl-dev libudev-dev libx11-dev libxml2-utils live-build lzop make ncurses-dev openjdk-8-jdk patchelf python-pip python2.7 qemu-user-static repo rsync schedtool ssh sudo texinfo time unzip vim-common wget x11proto-core-dev xsltproc zip zlib1g-dev python-is-python3
 ```
 
 
 
 ## 板级配置
 
-使用
-
-```shell
-./build.sh device/rockchip/rk356x/BoardConfig-rk3566-tspi-v10.mk
-```
-
-直接运行`BoardConfig-rk3566-tspi-v10.mk`
-
-或
+运行
 
 ```shell
 ./build.sh lunch
 ```
-
-选择运行命令`BoardConfig-rk3566-tspi-v10.mk`，这里序列号是3，所以我们选择3并回车。
 
 
 

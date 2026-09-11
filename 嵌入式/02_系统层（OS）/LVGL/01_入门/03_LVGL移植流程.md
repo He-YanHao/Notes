@@ -110,3 +110,6 @@ lv_conf_kconfig.h
 
 一般不用很费劲的移植，可以直接开启 `lv_conf.h` 里面对应的选项。
 
+
+
+# 编译失败添加 LV_CONF_INCLUDE_SIMPLE
